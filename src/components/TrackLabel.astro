@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  track: "reviews" | "benchmarks" | "methodology";
+  track: "reviews" | "benchmarks" | "notes" | "methodology";
 }
 
 const { track } = Astro.props;
@@ -8,6 +8,7 @@ const { track } = Astro.props;
 const labels: Record<Props["track"], string> = {
   reviews: "Reviews",
   benchmarks: "Benchmarks",
+  notes: "Notes",
   methodology: "Methodology",
 };
 ---

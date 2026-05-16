@@ -1,0 +1,59 @@
+---
+import IndexLayout from "../layouts/IndexLayout.astro";
+import TrackLabel from "../components/TrackLabel.astro";
+import {
+  formatDate,
+  getArticlePath,
+  getArticles,
+  groupArticlesByYearMonth,
+  SITE_DESCRIPTION,
+} from "../lib/articles";
+
+const articles = await getArticles();
+const groupedArticles = groupArticlesByYearMonth(articles);
+---
+
+<IndexLayout
+  title="Archive | Silicon Logic"
+  description="The full Silicon Logic archive, grouped by year and month for dense retrieval."
+  pageType="archive"
+  canonicalUrl="/archive/"
+>
+  <section class="prose">
+    <h1>Archive</h1>
+    <p>
+      The archive is the product in its most compressed form: every review, benchmark report, and note in one
+      durable index. It is built for readers who remember the claim and need the article again.
+    </p>
+  </section>
+
+  {groupedArticles.length > 0 ? (
+    groupedArticles.map((yearGroup) => (
+      <section class="archive-year" aria-labelledby={`archive-${yearGroup.year}`}>
+        <h2 id={`archive-${yearGroup.year}`}>{yearGroup.year}</h2>
+        {yearGroup.months.map((monthGroup) => (
+          <section class="archive-month" aria-labelledby={`archive-${yearGroup.year}-${monthGroup.month}`}>
+            <h3 id={`archive-${yearGroup.year}-${monthGroup.month}`}>{monthGroup.month}</h3>
+            {monthGroup.articles.map((article) => (
+              <article class="archive-row">
+                <div class="archive-row__meta">
+                  <TrackLabel track={article.data.track} />
+                  <time datetime={article.data.date.toISOString()}>{formatDate(article.data.date)}</time>
+                </div>
+                <div>
+                  <h4><a href={getArticlePath(article)}>{article.data.title}</a></h4>
+                  <p>{article.data.description}</p>
+                </div>
+              </article>
+            ))}
+          </section>
+        ))}
+      </section>
+    ))
+  ) : (
+    <section class="prose">
+      <p>{SITE_DESCRIPTION}</p>
+      <p class="meta-text">Articles will appear here as the private content repository is populated.</p>
+    </section>
+  )}
+</IndexLayout>

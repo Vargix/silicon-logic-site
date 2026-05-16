@@ -1,0 +1,38 @@
+{
+  "unified-memory-architecture": {
+    "name": "Unified Memory Architecture",
+    "description": "How shared CPU, GPU, and accelerator memory changes inference bottlenecks, especially on Apple Silicon systems."
+  },
+  "quantization": {
+    "name": "Quantization",
+    "description": "The practical tradeoffs of 4-bit, 8-bit, and mixed-precision model formats in local inference."
+  },
+  "llama-cpp": {
+    "name": "llama.cpp",
+    "description": "Coverage of llama.cpp behavior, configuration, and performance as a production-class local inference runtime."
+  },
+  "mlx": {
+    "name": "MLX",
+    "description": "Apple's MLX stack and its behavior on local inference workloads where framework choice materially changes results."
+  },
+  "transformer-architecture": {
+    "name": "Transformer Architecture",
+    "description": "Model-architecture concepts that explain observed latency, memory pressure, and throughput behavior."
+  },
+  "memory-bandwidth": {
+    "name": "Memory Bandwidth",
+    "description": "Bandwidth ceilings, working-set size, and the points where inference stops being explained by simple bytes-per-token math."
+  },
+  "benchmark-methodology": {
+    "name": "Benchmark Methodology",
+    "description": "Measurement design, run structure, reproducibility, and the assumptions behind Silicon Logic benchmark claims."
+  },
+  "signed-runs": {
+    "name": "Signed Runs",
+    "description": "Cryptographically signed BenchmarkRun artifacts and the verification path from article claim to raw measurement record."
+  },
+  "first-token-latency": {
+    "name": "First-Token Latency",
+    "description": "The latency readers feel before generation begins, including prompt ingestion, scheduling, and first decode behavior."
+  }
+}

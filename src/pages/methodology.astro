@@ -1,0 +1,82 @@
+---
+import IndexLayout from "../layouts/IndexLayout.astro";
+---
+
+<IndexLayout
+  title="Methodology | Silicon Logic"
+  description="Silicon Logic's testing methodology for hardware configuration, quantization choices, measurement, and signed benchmark artifacts."
+  canonicalUrl="/methodology/"
+>
+  <article class="prose">
+    <h1>Methodology</h1>
+    <p>
+      This page documents how Silicon Logic turns local inference runs into claims that can be inspected later.
+      The first public methodology version is intentionally conservative: it prefers repeatable measurements,
+      explicit configuration, and signed artifacts over broad but fragile coverage.
+    </p>
+
+    <h2>Hardware Configuration</h2>
+    <p>
+      Test systems are described by chip family, memory capacity, operating-system build, runtime versions, and
+      power state. Apple Silicon systems are treated as unified-memory machines rather than as a CPU plus a
+      discrete accelerator, because memory pressure and bandwidth shape local inference behavior across the
+      whole machine. Results that depend on thermal state or sustained load are marked as such.
+    </p>
+    <p>
+      The methodology avoids pretending that one laptop represents a whole product line. When a result is
+      specific to a memory tier, storage configuration, cooling envelope, or runtime setting, the artifact is
+      expected to say so.
+    </p>
+
+    <h2>Quantization Choices</h2>
+    <p>
+      Production-class local inference is normally evaluated with 4-bit quantization because that is where many
+      consumer systems cross from "can load the model" to "can run the model with useful context." Silicon Logic
+      reports formats such as <code>Q4_K_M</code>, <code>Q4_K_S</code>, and <code>Q8_0</code> as runtime inputs,
+      not as abstract quality claims. A smaller file can reduce memory bandwidth pressure while also changing
+      accuracy, cache behavior, and runtime kernel selection.
+    </p>
+    <p>
+      When an article compares formats, it should identify the model source, conversion path, quantization
+      metadata, and runtime version. The point is not to crown a universal format. The point is to make the
+      tradeoff visible enough that readers can map it onto their own constraints.
+    </p>
+
+    <h2>Measurement Methodology</h2>
+    <p>
+      Throughput is reported as tokens per second after the prompt has been ingested unless the article states
+      otherwise. Time to first token measures the reader-visible delay from request submission to the first
+      generated token. First-decode-token latency isolates the transition from prefill into decode, which can
+      expose runtime behavior that a single aggregate throughput number hides.
+    </p>
+    <p>
+      Runs are repeated, summarized with medians and tail values, and kept with enough raw samples to make
+      outliers visible. Silicon Logic prefers a smaller set of measurements with clear provenance over a wide
+      table whose assumptions cannot be reconstructed.
+    </p>
+
+    <h2>Signed Runs</h2>
+    <p>
+      Benchmark articles may attach a BenchmarkRun artifact. The artifact records runtime versions, hardware
+      configuration, model identifiers, prompt shape, measured samples, and summary statistics. Signed artifacts
+      are referenced from the article and can be verified against the repository history.
+    </p>
+    <p>
+      The visible signed-run badge is not decoration. It means the numeric claims in that section point back to
+      a concrete artifact rather than to a private spreadsheet or a screenshot that will disappear.
+    </p>
+
+    <h2>Methodology Version</h2>
+    <p>
+      The launch methodology starts at <strong>v1.0</strong>. Version bumps are reserved for changes that alter
+      what a reader should infer from a number: new run fields, changed aggregation rules, different warm-up
+      handling, or revised latency definitions.
+    </p>
+
+    <h2>Changelog</h2>
+    <dl>
+      <dt>v1.0</dt>
+      <dd>Initial public methodology for local inference reviews, benchmark reports, and signed BenchmarkRun artifacts.</dd>
+    </dl>
+  </article>
+</IndexLayout>

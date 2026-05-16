@@ -1,0 +1,81 @@
+---
+import { render } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import Byline from "../../components/Byline.astro";
+import SignedBadge from "../../components/SignedBadge.astro";
+import SignedFooter from "../../components/SignedFooter.astro";
+import {
+  getArticleOgImage,
+  getArticlePath,
+  getArticles,
+  getReadingTimeMinutes,
+  SITE_URL,
+  type ArticleEntry,
+} from "../../lib/articles";
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+
+  return articles.map((article) => ({
+    params: {
+      track: article.data.track,
+      slug: article.data.slug,
+    },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: ArticleEntry;
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const verifyUrl = article.data.signed_run
+  ? `https://github.com/Vargix/silicon-logic/blob/main/data/runs/${article.data.signed_run}.json`
+  : undefined;
+const artifactHash = article.data.artifact_sha;
+const canonicalPath = getArticlePath(article);
+---
+
+<ArticleLayout
+  title={`${article.data.title} | Silicon Logic`}
+  description={article.data.description}
+  showToc={article.data.toc}
+  ogImage={getArticleOgImage(article)}
+  canonicalUrl={new URL(canonicalPath, SITE_URL).toString()}
+>
+  <Byline
+    slot="byline"
+    trackLabel={article.data.track}
+    title={article.data.title}
+    dek={article.data.description}
+    author={article.data.author}
+    date={article.data.date.toISOString().slice(0, 10)}
+    readingTimeMinutes={getReadingTimeMinutes(article)}
+  />
+
+  {article.data.signed && article.data.signed_run && (
+    <p class="article-inline-badge">
+      <SignedBadge runId={article.data.signed_run} />
+    </p>
+  )}
+
+  {article.data.updated && (
+    <p class="meta-text article-updated">
+      Updated <time datetime={article.data.updated.toISOString()}>{article.data.updated.toISOString().slice(0, 10)}</time>
+    </p>
+  )}
+
+  <Content />
+
+  {article.data.signed && article.data.signed_run && article.data.methodology_version && verifyUrl && artifactHash && (
+    <SignedFooter
+      slot="signed-footer"
+      runId={article.data.signed_run}
+      artifactHash={artifactHash}
+      methodologyVersion={article.data.methodology_version}
+      verifyUrl={verifyUrl}
+    />
+  )}
+</ArticleLayout>

@@ -9,6 +9,8 @@ export interface Props {
   description?: string;
   themeColor?: string;
   showToc?: boolean;
+  ogImage?: string;
+  canonicalUrl?: string;
 }
 
 const {
@@ -16,6 +18,8 @@ const {
   description,
   themeColor,
   showToc = true,
+  ogImage,
+  canonicalUrl,
 } = Astro.props;
 ---
 
@@ -23,6 +27,9 @@ const {
   title={title}
   description={description}
   themeColor={themeColor}
+  ogType="article"
+  ogImage={ogImage}
+  canonicalUrl={canonicalUrl}
   pageType="article"
 >
   <SiteHeader slot="header" />
