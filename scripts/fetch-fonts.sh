@@ -87,7 +87,7 @@ if [ -n "${FONTS_DEPLOY_KEY:-}" ]; then
   git config --list 2>&1 | grep -i "insteadof\|url\." || echo "  (none found)"
 
   echo "fetch-fonts.sh: cloning ${FONTS_REPO_SSH} (depth=1, branch=${FONTS_BRANCH})"
-  GIT_TRACE=1 git clone --depth 1 --branch "${FONTS_BRANCH}" "${FONTS_REPO_SSH}" "${CLONE_DIR}" 2>&1 | head -50
+  GIT_TRACE=1 GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null git clone --depth 1 --branch "${FONTS_BRANCH}" "${FONTS_REPO_SSH}" "${CLONE_DIR}"
 else
   # Local mode: rely on your normal git auth (HTTPS with credential helper or
   # SSH agent if you have one configured for github.com)
