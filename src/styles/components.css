@@ -3,8 +3,7 @@
   top: 0;
   z-index: 20;
   border-bottom: 1px solid var(--border-muted);
-  background: color-mix(in oklch, var(--bg-canvas) 92%, transparent);
-  backdrop-filter: blur(12px);
+  background: var(--bg-canvas);
 }
 
 .site-header__inner,
@@ -36,7 +35,30 @@
   list-style: none;
 }
 
-.site-nav a,
+.site-nav__list > li,
+.site-footer__links > li,
+.mobile-nav__panel > li {
+  margin-block-start: 0;
+}
+
+.site-nav__list > li {
+  display: flex;
+  align-items: center;
+}
+
+.site-nav a {
+  display: flex;
+  align-items: center;
+  min-height: 2.25rem;
+  font-family: var(--font-sans);
+  font-size: var(--size-meta);
+  line-height: 1;
+  font-weight: 500;
+  color: var(--link-fg);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
 .site-footer a {
   font-family: var(--font-sans);
   font-size: var(--size-meta);
@@ -49,20 +71,26 @@
   text-underline-offset: 0.2em;
 }
 
-.site-nav a:hover,
 .site-footer a:hover {
   text-decoration-thickness: 2px;
 }
 
-.site-nav a:visited,
+.site-nav a:hover {
+  border-bottom-width: 2px;
+}
+
 .site-footer a:visited {
   color: var(--link-fg-visited);
   text-decoration-color: var(--link-fg-visited);
 }
 
+.site-nav a:visited {
+  color: var(--link-fg);
+}
+
 .site-nav a[aria-current="page"] {
   color: var(--fg-default);
-  text-decoration-color: var(--fg-default);
+  border-bottom-width: 2px;
 }
 
 .mobile-nav {
@@ -113,10 +141,13 @@
 }
 
 .mobile-nav__panel a {
-  display: block;
-  padding: 0.6rem 0.35rem;
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 0.35rem;
   font-family: var(--font-sans);
   font-size: 1rem;
+  line-height: 1;
   color: var(--link-fg);
   text-decoration: underline;
   text-decoration-color: var(--link-fg);
@@ -129,8 +160,12 @@
 }
 
 .mobile-nav__panel a:visited {
-  color: var(--link-fg-visited);
-  text-decoration-color: var(--link-fg-visited);
+  color: var(--link-fg);
+  text-decoration-color: var(--link-fg);
+}
+
+.mobile-nav__panel a[aria-current="page"] {
+  text-decoration-thickness: 2px;
 }
 
 .site-footer {
@@ -439,8 +474,13 @@
 
 .btn,
 .theme-toggle button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
   font-family: var(--font-sans);
   font-size: 0.875rem;
+  line-height: 1;
   font-weight: 500;
   padding: 0.4rem 0.85rem;
   border: 1px solid var(--border-default);
