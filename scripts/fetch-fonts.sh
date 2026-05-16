@@ -60,6 +60,12 @@ if [ -n "${FONTS_DEPLOY_KEY:-}" ]; then
   printf '%s\n' "${FONTS_DEPLOY_KEY}" > "${TEMP_SSH_KEY}"
   chmod 600 "${TEMP_SSH_KEY}"
 
+  # Diagnostic: verify the key file was written correctly
+  echo "fetch-fonts.sh: key file size = $(wc -c < "${TEMP_SSH_KEY}") bytes"
+  echo "fetch-fonts.sh: key file line count = $(wc -l < "${TEMP_SSH_KEY}")"
+  echo "fetch-fonts.sh: key first line = $(head -1 "${TEMP_SSH_KEY}")"
+  echo "fetch-fonts.sh: key last line = $(tail -1 "${TEMP_SSH_KEY}")"
+
   # Add GitHub host key to known_hosts so SSH doesn't prompt
   mkdir -p ~/.ssh
   chmod 700 ~/.ssh
@@ -67,12 +73,21 @@ if [ -n "${FONTS_DEPLOY_KEY:-}" ]; then
     ssh-keyscan -t ed25519,rsa github.com >> ~/.ssh/known_hosts 2>/dev/null
     chmod 644 ~/.ssh/known_hosts
   fi
+  echo "fetch-fonts.sh: known_hosts entries for github.com = $(grep -c "github.com" ~/.ssh/known_hosts || echo 0)"
 
-  # Tell git to use our deploy key for this clone only
-  export GIT_SSH_COMMAND="ssh -i ${TEMP_SSH_KEY} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+  # Tell git to use our deploy key
+  export GIT_SSH_COMMAND="ssh -i ${TEMP_SSH_KEY} -o IdentitiesOnly=yes -o UserKnownHostsFile=${HOME}/.ssh/known_hosts -o StrictHostKeyChecking=yes -v"
+
+  # Diagnostic: test SSH auth to GitHub directly before trying to clone
+  echo "fetch-fonts.sh: testing SSH auth to GitHub..."
+  ssh -i "${TEMP_SSH_KEY}" -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -T git@github.com 2>&1 | head -5 || true
+
+  # Diagnostic: show any inherited git insteadOf config
+  echo "fetch-fonts.sh: git config dump (insteadOf rules):"
+  git config --list 2>&1 | grep -i "insteadof\|url\." || echo "  (none found)"
 
   echo "fetch-fonts.sh: cloning ${FONTS_REPO_SSH} (depth=1, branch=${FONTS_BRANCH})"
-  git -c url."git@github.com:".insteadOf="" -c url."ssh://git@github.com/".insteadOf="" clone --depth 1 --branch "${FONTS_BRANCH}" "${FONTS_REPO_SSH}" "${CLONE_DIR}"
+  GIT_TRACE=1 git clone --depth 1 --branch "${FONTS_BRANCH}" "${FONTS_REPO_SSH}" "${CLONE_DIR}" 2>&1 | head -50
 else
   # Local mode: rely on your normal git auth (HTTPS with credential helper or
   # SSH agent if you have one configured for github.com)
