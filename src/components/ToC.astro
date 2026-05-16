@@ -1,0 +1,63 @@
+---
+export interface TocHeading {
+  depth: 2 | 3;
+  slug: string;
+  text: string;
+}
+
+export interface Props {
+  headings?: TocHeading[];
+}
+
+const { headings = [] } = Astro.props;
+---
+
+<nav class="toc" aria-label="Table of contents" data-toc>
+  <h2>Contents</h2>
+  <ol data-toc-list>
+    {headings.map((heading) => (
+      <li data-depth={heading.depth}>
+        <a href={`#${heading.slug}`}>{heading.text}</a>
+      </li>
+    ))}
+  </ol>
+</nav>
+
+{headings.length === 0 && (
+  <script is:inline>
+    (function() {
+      var toc = document.querySelector('[data-toc]');
+      var list = document.querySelector('[data-toc-list]');
+      if (!toc || !list || list.children.length > 0) return;
+
+      var headings = Array.from(document.querySelectorAll('main h2, main h3'))
+        .filter(function(heading) {
+          return !heading.closest('[data-toc]') && heading.textContent.trim().length > 0;
+        });
+
+      if (headings.length === 0) {
+        toc.hidden = true;
+        return;
+      }
+
+      headings.forEach(function(heading) {
+        if (!heading.id) {
+          heading.id = heading.textContent.trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
+        }
+
+        var item = document.createElement('li');
+        item.setAttribute('data-depth', heading.tagName === 'H3' ? '3' : '2');
+
+        var link = document.createElement('a');
+        link.href = '#' + heading.id;
+        link.textContent = heading.textContent.trim();
+
+        item.appendChild(link);
+        list.appendChild(item);
+      });
+    })();
+  </script>
+)}

@@ -1,0 +1,140 @@
+:root,
+[data-theme="light"] {
+  /* Surfaces */
+  --bg-canvas: oklch(98.5% 0.005 90); /* #fbfaf7 warm off-white */
+  --bg-elevated: oklch(100% 0 0); /* #ffffff for inset cards (rare) */
+  --bg-subtle: oklch(96.5% 0.006 90); /* #f4f2ed slightly deeper warm */
+  --bg-code-inline: oklch(95% 0.008 90); /* #efece5 inline <code> tint */
+  --bg-code-block: oklch(97% 0.006 90); /* #f7f5f0 code block surface */
+
+  /* Text */
+  --fg-default: oklch(20% 0.005 280); /* #1f2024 near-black, faint cool */
+  --fg-muted: oklch(45% 0.01 280); /* #5e6068 captions, metadata */
+  --fg-subtle: oklch(60% 0.01 280); /* #8a8c93 timestamps, disabled */
+
+  /* Borders */
+  --border-default: oklch(88% 0.008 90); /* #dcd9d1 */
+  --border-muted: oklch(93% 0.006 90); /* #ebe9e2 */
+
+  /* Accent - warm orange/amber in the Stratechery direction */
+  --accent: oklch(58% 0.14 55); /* #c87238 muted warm orange */
+  --accent-hover: oklch(50% 0.16 55); /* #a85a25 deeper on hover */
+  --accent-visited: oklch(45% 0.10 35); /* #88553a muted brown for visited */
+
+  /* Link colors - accent is brand-color-only; links use high-contrast text.
+     Underline carries link semantics; color carries readability. */
+  --link-fg: var(--fg-default); /* 15.59:1 on bg-canvas (AAA) */
+  --link-fg-visited: var(--fg-muted); /* 6.01:1 on bg-canvas (AA body) */
+
+  /* Signed-artifact semantic - muted teal, distinct from accent */
+  --signed-fg: oklch(45% 0.08 195); /* #2c6470 muted teal */
+  --signed-bg: oklch(94% 0.02 195); /* #dde8ec badge surface */
+  --signed-border: oklch(75% 0.06 195); /* #8db5be */
+}
+
+[data-theme="dark"] {
+  /* Surfaces */
+  --bg-canvas: oklch(15% 0.008 280); /* #111317 near-black, faint cool */
+  --bg-elevated: oklch(19% 0.008 280); /* #1a1d22 cards, pull quotes */
+  --bg-subtle: oklch(22% 0.008 280); /* #1f2228 section dividers */
+  --bg-code-inline: oklch(25% 0.008 280); /* #25282f inline <code> tint */
+  --bg-code-block: oklch(18% 0.008 280); /* #181a1f code block surface */
+
+  /* Text */
+  --fg-default: oklch(92% 0.005 90); /* #e8e5dd warm-ish off-white */
+  --fg-muted: oklch(70% 0.008 90); /* #a8a59c captions */
+  --fg-subtle: oklch(55% 0.008 90); /* #7d7a71 timestamps */
+
+  /* Borders */
+  --border-default: oklch(30% 0.01 280); /* #2c2f36 */
+  --border-muted: oklch(25% 0.008 280); /* #24272d */
+
+  /* Accent - lifted warm orange for dark surface */
+  --accent: oklch(75% 0.13 55); /* #e8a877 lifted warm orange */
+  --accent-hover: oklch(82% 0.11 55); /* #f0bd95 brighter on hover */
+  --accent-visited: oklch(65% 0.08 35); /* #b6906f */
+
+  /* Link colors - accent is brand-color-only; links use high-contrast text. */
+  --link-fg: var(--fg-default); /* 14.77:1 on bg-canvas (AAA) */
+  --link-fg-visited: var(--fg-muted); /* 7.55:1 on bg-canvas (AAA) */
+
+  /* Signed-artifact semantic */
+  --signed-fg: oklch(78% 0.09 195); /* #82c0cc lifted teal */
+  --signed-bg: oklch(25% 0.04 195); /* #1f323a */
+  --signed-border: oklch(45% 0.07 195); /* #4a7681 */
+}
+
+:root {
+  /* Font families */
+  --font-body: "Tiempos Text Web", "Tiempos Text", Iowan Old Style,
+    "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-display: "Tiempos Headline", "Tiempos Text Web",
+    "Tiempos Text", Georgia, serif;
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Monaco, Consolas,
+    "Liberation Mono", "DejaVu Sans Mono", monospace;
+
+  /* Size scale (desktop) */
+  --size-body: 1.125rem; /* 18px */
+  --lh-body: 1.55;
+
+  --size-footnote: 0.9375rem; /* 15px */
+  --lh-footnote: 1.5;
+
+  --size-inline-code: 0.92em; /* relative to surrounding text */
+  --size-code: 0.9375rem; /* 15px */
+  --lh-code: 1.6;
+
+  --size-h1: 2.375rem; /* 38px */
+  --lh-h1: 1.15;
+
+  --size-h2: 1.5rem; /* 24px */
+  --lh-h2: 1.3;
+
+  --size-h3: 1.1875rem; /* 19px */
+  --lh-h3: 1.4;
+
+  --size-h4: 1rem; /* 16px */
+  --lh-h4: 1.45;
+
+  --size-meta: 0.8125rem; /* 13px - bylines, track labels */
+  --lh-meta: 1.4;
+
+  --size-wordmark: 1.5rem; /* 24px - masthead in Tiempos Headline */
+
+  /* Weights */
+  --weight-body: 400;
+  --weight-body-emphasis: 400; /* italic carries emphasis, not weight */
+  --weight-meta: 500; /* Tiempos Text Medium */
+  --weight-h1: 600; /* Tiempos Text Web Semibold */
+  --weight-h2: 600; /* Inter Semibold */
+  --weight-h3: 600; /* Inter Semibold */
+  --weight-h4: 500; /* Inter Medium */
+  --weight-wordmark: 700; /* Tiempos Headline Bold */
+
+  --measure-prose: 68ch; /* primary reading column */
+  --measure-artifact: 94ch; /* code, tables, charts can break wider */
+  --measure-display: 52ch; /* tighter measure for h1 hero */
+
+  --space-paragraph: 0.95rem; /* between paragraphs */
+  --space-block: 1.5rem; /* between blocks (lists, code, quotes) */
+  --space-section: 2.5rem; /* before H2 */
+  --space-subsection: 1.75rem; /* before H3 */
+  --space-code-pad-y: 0.875rem;
+  --space-code-pad-x: 1rem;
+
+  --radius-code: 6px;
+  --radius-callout: 8px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --size-body: 1.0625rem; /* 17px */
+    --size-h1: 1.95rem; /* 31px */
+    --size-h2: 1.375rem; /* 22px */
+    --size-h3: 1.125rem; /* 18px */
+    --measure-prose: 100%; /* full width on mobile */
+    --measure-artifact: 100%;
+  }
+}

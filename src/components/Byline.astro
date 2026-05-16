@@ -1,0 +1,40 @@
+---
+import TrackLabel from "./TrackLabel.astro";
+
+export interface Props {
+  trackLabel: "reviews" | "benchmarks" | "methodology";
+  title: string;
+  dek?: string;
+  author: string;
+  date: string;
+  readingTimeMinutes: number;
+}
+
+const {
+  trackLabel,
+  title,
+  dek,
+  author,
+  date,
+  readingTimeMinutes,
+} = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+}).format(new Date(`${date}T00:00:00`));
+---
+
+<header class="byline">
+  <TrackLabel track={trackLabel} />
+  <h1>{title}</h1>
+  {dek && <p class="dek">{dek}</p>}
+  <div class="meta">
+    <span class="author">{author}</span>
+    <span class="separator" aria-hidden="true">·</span>
+    <time class="date" datetime={date}>{formattedDate}</time>
+    <span class="separator" aria-hidden="true">·</span>
+    <span class="reading-time">{readingTimeMinutes} min read</span>
+  </div>
+</header>

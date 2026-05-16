@@ -1,0 +1,36 @@
+---
+export interface Props {
+  runId: string;
+  artifactHash: string;
+  methodologyVersion: string;
+  verifyUrl: string;
+}
+
+const {
+  runId,
+  artifactHash,
+  methodologyVersion,
+  verifyUrl,
+} = Astro.props;
+
+const artifactPrefix = artifactHash.slice(0, 12);
+---
+
+<aside class="signed-footer" aria-labelledby="signed-footer-heading">
+  <h4 class="signed-heading" id="signed-footer-heading">
+    <svg class="check-icon" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M13.4 4.1 6.6 11 2.6 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    Cryptographically Signed Run
+  </h4>
+  <dl class="signed-meta">
+    <dt>Run ID</dt>
+    <dd><code>{runId}</code></dd>
+    <dt>Artifact</dt>
+    <dd><a href={`/artifacts/${artifactPrefix}/`}>SHA-256: <code class="breakable">{artifactHash}</code></a></dd>
+    <dt>Methodology</dt>
+    <dd><a href="/methodology/inference/">{methodologyVersion}</a></dd>
+    <dt>Verify</dt>
+    <dd><a href={verifyUrl}>Instructions</a></dd>
+  </dl>
+</aside>
