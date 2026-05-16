@@ -1,0 +1,338 @@
+---
+import { Code } from "astro-expressive-code/components";
+import IndexLayout from "../layouts/IndexLayout.astro";
+import Blockquote from "../components/Blockquote.astro";
+import Byline from "../components/Byline.astro";
+import Callout from "../components/Callout.astro";
+import DataTable from "../components/DataTable.astro";
+import SignedBadge from "../components/SignedBadge.astro";
+import SignedFooter from "../components/SignedFooter.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import TrackLabel from "../components/TrackLabel.astro";
+
+interface Token {
+  name: string;
+  oklch: string;
+  hex: string;
+  compareTo: string;
+  compareHex: string;
+}
+
+const lightTokens: Token[] = [
+  { name: "--bg-canvas", oklch: "oklch(98.5% 0.005 90)", hex: "#fbfaf7", compareTo: "--fg-default", compareHex: "#1f2024" },
+  { name: "--bg-elevated", oklch: "oklch(100% 0 0)", hex: "#ffffff", compareTo: "--fg-default", compareHex: "#1f2024" },
+  { name: "--bg-subtle", oklch: "oklch(96.5% 0.006 90)", hex: "#f4f2ed", compareTo: "--fg-default", compareHex: "#1f2024" },
+  { name: "--bg-code-inline", oklch: "oklch(95% 0.008 90)", hex: "#efece5", compareTo: "--fg-default", compareHex: "#1f2024" },
+  { name: "--bg-code-block", oklch: "oklch(97% 0.006 90)", hex: "#f7f5f0", compareTo: "--fg-default", compareHex: "#1f2024" },
+  { name: "--fg-default", oklch: "oklch(20% 0.005 280)", hex: "#1f2024", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
+  { name: "--fg-muted", oklch: "oklch(45% 0.01 280)", hex: "#5e6068", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
+  { name: "--fg-subtle", oklch: "oklch(60% 0.01 280)", hex: "#8a8c93", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
+  { name: "--border-default", oklch: "oklch(88% 0.008 90)", hex: "#dcd9d1", compareTo: "--fg-default", compareHex: "#1f2024" },
+  { name: "--border-muted", oklch: "oklch(93% 0.006 90)", hex: "#ebe9e2", compareTo: "--fg-default", compareHex: "#1f2024" },
+  { name: "--accent", oklch: "oklch(58% 0.14 55)", hex: "#c87238", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
+  { name: "--accent-hover", oklch: "oklch(50% 0.16 55)", hex: "#a85a25", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
+  { name: "--accent-visited", oklch: "oklch(45% 0.10 35)", hex: "#88553a", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
+  { name: "--signed-fg", oklch: "oklch(45% 0.08 195)", hex: "#2c6470", compareTo: "--signed-bg", compareHex: "#dde8ec" },
+  { name: "--signed-bg", oklch: "oklch(94% 0.02 195)", hex: "#dde8ec", compareTo: "--signed-fg", compareHex: "#2c6470" },
+  { name: "--signed-border", oklch: "oklch(75% 0.06 195)", hex: "#8db5be", compareTo: "--fg-default", compareHex: "#1f2024" },
+];
+
+const darkTokens: Token[] = [
+  { name: "--bg-canvas", oklch: "oklch(15% 0.008 280)", hex: "#111317", compareTo: "--fg-default", compareHex: "#e8e5dd" },
+  { name: "--bg-elevated", oklch: "oklch(19% 0.008 280)", hex: "#1a1d22", compareTo: "--fg-default", compareHex: "#e8e5dd" },
+  { name: "--bg-subtle", oklch: "oklch(22% 0.008 280)", hex: "#1f2228", compareTo: "--fg-default", compareHex: "#e8e5dd" },
+  { name: "--bg-code-inline", oklch: "oklch(25% 0.008 280)", hex: "#25282f", compareTo: "--fg-default", compareHex: "#e8e5dd" },
+  { name: "--bg-code-block", oklch: "oklch(18% 0.008 280)", hex: "#181a1f", compareTo: "--fg-default", compareHex: "#e8e5dd" },
+  { name: "--fg-default", oklch: "oklch(92% 0.005 90)", hex: "#e8e5dd", compareTo: "--bg-canvas", compareHex: "#111317" },
+  { name: "--fg-muted", oklch: "oklch(70% 0.008 90)", hex: "#a8a59c", compareTo: "--bg-canvas", compareHex: "#111317" },
+  { name: "--fg-subtle", oklch: "oklch(55% 0.008 90)", hex: "#7d7a71", compareTo: "--bg-canvas", compareHex: "#111317" },
+  { name: "--border-default", oklch: "oklch(30% 0.01 280)", hex: "#2c2f36", compareTo: "--fg-default", compareHex: "#e8e5dd" },
+  { name: "--border-muted", oklch: "oklch(25% 0.008 280)", hex: "#24272d", compareTo: "--fg-default", compareHex: "#e8e5dd" },
+  { name: "--accent", oklch: "oklch(75% 0.13 55)", hex: "#e8a877", compareTo: "--bg-canvas", compareHex: "#111317" },
+  { name: "--accent-hover", oklch: "oklch(82% 0.11 55)", hex: "#f0bd95", compareTo: "--bg-canvas", compareHex: "#111317" },
+  { name: "--accent-visited", oklch: "oklch(65% 0.08 35)", hex: "#b6906f", compareTo: "--bg-canvas", compareHex: "#111317" },
+  { name: "--signed-fg", oklch: "oklch(78% 0.09 195)", hex: "#82c0cc", compareTo: "--signed-bg", compareHex: "#1f323a" },
+  { name: "--signed-bg", oklch: "oklch(25% 0.04 195)", hex: "#1f323a", compareTo: "--signed-fg", compareHex: "#82c0cc" },
+  { name: "--signed-border", oklch: "oklch(45% 0.07 195)", hex: "#4a7681", compareTo: "--fg-default", compareHex: "#e8e5dd" },
+];
+
+function channel(value: number) {
+  const normalized = value / 255;
+  return normalized <= 0.03928
+    ? normalized / 12.92
+    : ((normalized + 0.055) / 1.055) ** 2.4;
+}
+
+function luminance(hex: string) {
+  const value = hex.replace("#", "");
+  const r = channel(parseInt(value.slice(0, 2), 16));
+  const g = channel(parseInt(value.slice(2, 4), 16));
+  const b = channel(parseInt(value.slice(4, 6), 16));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function contrast(a: string, b: string) {
+  const l1 = luminance(a);
+  const l2 = luminance(b);
+  const lighter = Math.max(l1, l2);
+  const darker = Math.min(l1, l2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+function verdict(ratio: number) {
+  if (ratio >= 7) return "AAA";
+  if (ratio >= 4.5) return "AA";
+  if (ratio >= 3) return "AA large";
+  return "Fail";
+}
+
+const pythonCode = `from pathlib import Path
+
+def tokens_per_second(tokens: int, seconds: float) -> float:
+    return tokens / seconds
+
+result = tokens_per_second(tokens=4096, seconds=46.9)
+print(f"{result:.1f} tok/s")`;
+
+const bashCode = `$ python bench/inference.py --model llama-3.1-8b-q4
+Loading model: llama-3.1-8b-instruct-Q4_K_S.gguf
+Prompt tokens: 2048
+Throughput: 87.3 tok/s`;
+
+const jsonCode = `{
+  "run_id": "2026-05-14-1830-llama",
+  "model": "llama-3.1-8b-instruct-Q4_K_S",
+  "median_tokens_per_second": 87.3,
+  "artifact_sha256": "abc123f09d4a"
+}`;
+
+const diffCode = `def bandwidth_bound(bytes_per_token, tokens_per_second):
+    return bytes_per_token * tokens_per_second
+
+peak = bandwidth_bound(5_200_000, 91.2)
+peak = bandwidth_bound(5_200_000, 87.3)
+print(peak)`;
+---
+
+<IndexLayout
+  title="Styleguide | Silicon Logic"
+  description="Internal verification page for Silicon Logic design system v1."
+  pageType="page"
+>
+  <div class="styleguide-shell">
+    <section class="styleguide-section" id="page-header">
+      <p class="styleguide-kicker">Section 1</p>
+      <h1>Silicon Logic design system v1</h1>
+      <p class="meta-text">The site header above is rendered with navigation and a functional theme toggle.</p>
+    </section>
+
+    <section class="styleguide-section" id="typography-scale">
+      <p class="styleguide-kicker">Section 2</p>
+      <h2>Typography Scale</h2>
+      <div class="prose">
+        <h1>Apple Silicon Memory Bandwidth Analysis</h1>
+        <p class="meta-text">H1: Tiempos Text Web Semibold, 38px/1.15, §3.4</p>
+        <h2>Bandwidth Ceilings</h2>
+        <p class="meta-text">H2: Inter Semibold, 24px/1.3, §3.4</p>
+        <h3>Quantization and Working Set Size</h3>
+        <p class="meta-text">H3: Inter Semibold, 19px/1.4, §3.4</p>
+        <h4>Measurement Notes</h4>
+        <p class="meta-text">H4: Inter Medium, 16px/1.45, §3.4</p>
+        <p>
+          The memory bandwidth ceiling on Apple Silicon's unified memory architecture is real but rarely the
+          binding constraint for inference workloads at typical context lengths.
+        </p>
+        <p><em>Body italic</em> carries emphasis through shape, while <strong>body bold</strong> is reserved for moments that need stronger editorial pressure.</p>
+        <p class="footnote">Footnote-size paragraph: Tiempos Text Web, 15px/1.5, §2.4</p>
+        <p class="meta-text">Meta text: Inter Medium, 13px/1.4, §2.4</p>
+      </div>
+    </section>
+
+    <section class="styleguide-section" id="color-light">
+      <p class="styleguide-kicker">Section 3</p>
+      <h2>Color Tokens - Light Mode</h2>
+      <div class="token-grid" data-theme="light">
+        {lightTokens.map((token) => {
+          const ratio = contrast(token.hex, token.compareHex);
+          return (
+            <article class="token-card">
+              <div class="token-swatch" style={`background: var(${token.name});`}></div>
+              <div class="token-meta">
+                <strong>{token.name}</strong>
+                <div>{token.oklch}</div>
+                <div>{token.hex}</div>
+                <div>{ratio.toFixed(2)}:1 vs {token.compareTo} ({verdict(ratio)})</div>
+                <div>Spec reference: §2.3</div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="styleguide-section" id="color-dark">
+      <p class="styleguide-kicker">Section 4</p>
+      <h2>Color Tokens - Dark Mode</h2>
+      <div class="token-grid" data-theme="dark">
+        {darkTokens.map((token) => {
+          const ratio = contrast(token.hex, token.compareHex);
+          return (
+            <article class="token-card">
+              <div class="token-swatch" style={`background: var(${token.name});`}></div>
+              <div class="token-meta">
+                <strong>{token.name}</strong>
+                <div>{token.oklch}</div>
+                <div>{token.hex}</div>
+                <div>{ratio.toFixed(2)}:1 vs {token.compareTo} ({verdict(ratio)})</div>
+                <div>Spec reference: §2.3</div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="styleguide-section" id="prose-sample">
+      <p class="styleguide-kicker">Section 5</p>
+      <h2>Prose Sample</h2>
+      <div class="prose">
+        <p>
+          The tempting story is that unified memory bandwidth explains every local inference result on Apple
+          Silicon. It explains enough to be dangerous. A 128-bit LPDDR interface can make a quantized 8B model
+          look cleanly bandwidth-bound when the batch is small, the prompt is already resident, and the runtime
+          spends most of its time streaming weights. But that framing loses resolution as soon as context grows,
+          because KV-cache traffic, scheduler overhead, and prompt ingestion begin to compete with the neat
+          weights-per-token arithmetic. In practice, <code>Q4_K_S</code> often moves the bottleneck from raw
+          bandwidth to a mix of cache locality and kernel dispatch. The result is not that bandwidth does not
+          matter; it is that bandwidth is the floor, not the whole building. A useful benchmark therefore reports
+          <em>first-token latency</em>, steady-state throughput, and tail behavior under repeated runs, with
+          <strong>artifact hashes</strong> attached to the exact configuration. See the
+          <a href="/methodology/inference/">inference methodology</a> for the signed-run contract that keeps
+          these measurements inspectable after the article has aged.
+        </p>
+      </div>
+    </section>
+
+    <section class="styleguide-section" id="code-blocks">
+      <p class="styleguide-kicker">Section 6</p>
+      <h2>Code Blocks</h2>
+      <Code code={pythonCode} lang="python" meta={'title="bench/inference.py"'} />
+      <Code code={bashCode} lang="bash" meta={'frame="terminal"'} />
+      <Code code={jsonCode} lang="json" />
+      <Code code={pythonCode} lang="python" meta="showLineNumbers" />
+      <Code code={diffCode} lang="python" meta="ins={5} del={4}" />
+    </section>
+
+    <section class="styleguide-section" id="components">
+      <p class="styleguide-kicker">Section 7</p>
+      <h2>Components</h2>
+
+      <Byline
+        trackLabel="reviews"
+        title="Apple Silicon Memory Bandwidth Analysis"
+        dek="Why peak bandwidth matters for Llama inference, and where it stops explaining the result."
+        author="Douglas Vargas"
+        date="2026-05-14"
+        readingTimeMinutes={18}
+      />
+
+      <div class="styleguide-grid">
+        <p><TrackLabel track="reviews" /></p>
+        <p><TrackLabel track="benchmarks" /></p>
+        <p><TrackLabel track="methodology" /></p>
+      </div>
+
+      <div class="prose">
+        <p>
+          The benchmark table below is tied to <SignedBadge runId="2026-05-14-llama" /> so the numbers remain
+          auditable after runtime versions move on.
+        </p>
+      </div>
+
+      <SignedFooter
+        runId="2026-05-14-1830-llama"
+        artifactHash="abc123f09d4af0cc18b91e7c0ee6a4fb75dc2b2f3a78e11d13f9518e72a4b6c1"
+        methodologyVersion="v2.1"
+        verifyUrl="https://github.com/Vargix/silicon-logic#verifying"
+      />
+
+      <div class="prose">
+        <Callout type="note" title="Note">
+          <p>Unified memory removes one copy boundary, but it does not remove the need to account for cache residency.</p>
+        </Callout>
+
+        <Callout type="caveat" title="Caveat">
+          <p>These runs are directionally stable, but firmware updates can change thermal behavior across long sessions.</p>
+        </Callout>
+
+        <Callout type="methodology" title="Methodology">
+          <p>Each reported median comes from a signed artifact containing the runtime version, model hash, prompt shape, and raw run samples.</p>
+        </Callout>
+
+        <Blockquote cite="Silicon Logic methodology notes">
+          <p>A benchmark without its artifact is a claim; a benchmark with its artifact is an invitation to inspect the claim.</p>
+        </Blockquote>
+      </div>
+
+      <DataTable caption="Representative local inference measurements.">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>System</th>
+              <th>Model</th>
+              <th class="numeric">Median tok/s</th>
+              <th class="numeric">P95 latency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>M4 Max</td>
+              <td>Llama 3.1 8B Q4_K_S</td>
+              <td class="numeric">87.3</td>
+              <td class="numeric">141 ms</td>
+            </tr>
+            <tr>
+              <td>M3 Max</td>
+              <td>Llama 3.1 8B Q4_K_S</td>
+              <td class="numeric">74.8</td>
+              <td class="numeric">158 ms</td>
+            </tr>
+            <tr>
+              <td>M2 Ultra</td>
+              <td>Mistral 7B Q4_K_M</td>
+              <td class="numeric">92.5</td>
+              <td class="numeric">132 ms</td>
+            </tr>
+            <tr>
+              <td>RTX 4090</td>
+              <td>Llama 3.1 8B Q4_K_S</td>
+              <td class="numeric">154.2</td>
+              <td class="numeric">96 ms</td>
+            </tr>
+            <tr>
+              <td>Framework Laptop</td>
+              <td>Phi-3 Mini Q4</td>
+              <td class="numeric">31.7</td>
+              <td class="numeric">244 ms</td>
+            </tr>
+          </tbody>
+        </table>
+      </DataTable>
+
+      <ThemeToggle />
+    </section>
+
+    <section class="styleguide-section" id="wordmark">
+      <p class="styleguide-kicker">Section 8</p>
+      <h2>Wordmark</h2>
+      <p class="wordmark wordmark--large">Silicon Logic</p>
+      <p class="meta-text">Tiempos Headline at masthead scale. Falls back to system serif without local Tiempos files.</p>
+    </section>
+
+    <section class="styleguide-section" id="footer">
+      <p class="styleguide-kicker">Section 9</p>
+      <h2>Footer</h2>
+      <p class="meta-text">The site footer below is rendered with feed links, a duplicate theme toggle, about link, and copyright notice.</p>
+    </section>
+  </div>
+</IndexLayout>

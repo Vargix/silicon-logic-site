@@ -1,17 +1,25 @@
 ---
-
+import IndexLayout from "../layouts/IndexLayout.astro";
+import TrackLabel from "../components/TrackLabel.astro";
+import SignedBadge from "../components/SignedBadge.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<IndexLayout
+  title="Silicon Logic"
+  description="Analytical AI hardware publication focused on reviews, benchmarks, and signed methodology."
+  pageType="home"
+>
+  <section class="prose">
+    <TrackLabel track="methodology" />
+    <h1>Analytical AI hardware, measured with artifacts attached.</h1>
+    <p>
+      Silicon Logic publishes long-form reviews and benchmark analysis for local inference systems, with a bias
+      toward durable explanations over launch-window reaction.
+    </p>
+    <p>
+      Phase 1 of the site build is the design system. Review the implementation at
+      <a href="/styleguide/">/styleguide</a>, including the signed-run treatment
+      <SignedBadge runId="2026-05-14-llama" />.
+    </p>
+  </section>
+</IndexLayout>
