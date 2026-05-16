@@ -1242,7 +1242,7 @@ Documented for future Phase work, not blocking v1.
 
 **10.3 Series navigation visual treatment.** Spec includes "← Previous in Series / → Next in Series" but doesn't fully visual-design it. First series article will inform.
 
-**10.4 OG image generation.** Social-preview images for articles need their own design (Tiempos Headline desktop license is available for this). Defer to Phase 6.
+**10.4 OG image generation.** Social-preview images for articles need their own design. Since the Tiempos license is web-only (no desktop license owned), OG images will use Inter (which has a desktop-usable open-source license) for titles, with Silicon Logic's brand mark as the visual anchor. Defer detailed design to Phase 6.
 
 **10.5 RSS feed XSL stylesheet.** Some publications style their `.xml` feeds with XSL so they render in browsers as readable pages. Decide later.
 
