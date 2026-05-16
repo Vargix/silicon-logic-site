@@ -1,0 +1,68 @@
+<fieldset class="theme-toggle" data-theme-toggle>
+  <legend class="visually-hidden">Theme</legend>
+  <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+  <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+  <button type="button" data-theme-set="system" aria-pressed="true">Auto</button>
+</fieldset>
+
+<script is:inline>
+  (function() {
+    if (window.__siliconLogicThemeToggleBound) return;
+    window.__siliconLogicThemeToggleBound = true;
+
+    var storageKey = 'silicon-logic-theme';
+    var media = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function storedMode() {
+      try {
+        return localStorage.getItem(storageKey);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function systemTheme() {
+      return media.matches ? 'dark' : 'light';
+    }
+
+    function applyTheme(mode) {
+      var theme = mode === 'system' || !mode ? systemTheme() : mode;
+      document.documentElement.setAttribute('data-theme', theme);
+      syncButtons(mode || 'system');
+    }
+
+    function syncButtons(mode) {
+      document.querySelectorAll('[data-theme-toggle] [data-theme-set]').forEach(function(button) {
+        button.setAttribute('aria-pressed', button.getAttribute('data-theme-set') === mode ? 'true' : 'false');
+      });
+    }
+
+    function setMode(mode) {
+      try {
+        if (mode === 'system') {
+          localStorage.removeItem(storageKey);
+        } else {
+          localStorage.setItem(storageKey, mode);
+        }
+      } catch (e) {
+        /* Keep the visual toggle working even when storage is unavailable. */
+      }
+      applyTheme(mode);
+    }
+
+    document.addEventListener('click', function(event) {
+      var button = event.target.closest('[data-theme-set]');
+      if (!button) return;
+      setMode(button.getAttribute('data-theme-set'));
+    });
+
+    media.addEventListener('change', function(event) {
+      if (!storedMode()) {
+        document.documentElement.setAttribute('data-theme', event.matches ? 'dark' : 'light');
+        syncButtons('system');
+      }
+    });
+
+    applyTheme(storedMode() || 'system');
+  })();
+</script>

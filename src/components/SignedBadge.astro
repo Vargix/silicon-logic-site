@@ -1,0 +1,14 @@
+---
+export interface Props {
+  runId: string;
+}
+
+const { runId } = Astro.props;
+---
+
+<span class="signed-badge">
+  <svg class="check-icon" viewBox="0 0 16 16" aria-hidden="true">
+    <path d="M13.4 4.1 6.6 11 2.6 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+  <span>Signed Run · <code>{runId}</code></span>
+</span>

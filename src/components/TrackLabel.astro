@@ -1,0 +1,15 @@
+---
+export interface Props {
+  track: "reviews" | "benchmarks" | "methodology";
+}
+
+const { track } = Astro.props;
+
+const labels: Record<Props["track"], string> = {
+  reviews: "Reviews",
+  benchmarks: "Benchmarks",
+  methodology: "Methodology",
+};
+---
+
+<span class="track-label" data-track={track}>{labels[track]}</span>
