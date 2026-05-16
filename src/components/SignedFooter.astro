@@ -1,7 +1,7 @@
 ---
 export interface Props {
   runId: string;
-  artifactHash: string;
+  artifactHash?: string;
   methodologyVersion: string;
   verifyUrl: string;
 }
@@ -13,7 +13,7 @@ const {
   verifyUrl,
 } = Astro.props;
 
-const artifactPrefix = artifactHash.slice(0, 12);
+const artifactPrefix = artifactHash?.slice(0, 12);
 ---
 
 <aside class="signed-footer" aria-labelledby="signed-footer-heading">
@@ -26,10 +26,14 @@ const artifactPrefix = artifactHash.slice(0, 12);
   <dl class="signed-meta">
     <dt>Run ID</dt>
     <dd><code>{runId}</code></dd>
-    <dt>Artifact</dt>
-    <dd><a href={`/artifacts/${artifactPrefix}/`}>SHA-256: <code class="breakable">{artifactHash}</code></a></dd>
+    {artifactPrefix && (
+      <>
+        <dt>Artifact</dt>
+        <dd>SHA-256 prefix: <code class="breakable">{artifactPrefix}</code></dd>
+      </>
+    )}
     <dt>Methodology</dt>
-    <dd><a href="/methodology/inference/">{methodologyVersion}</a></dd>
+    <dd><a href="/methodology/">{methodologyVersion}</a></dd>
     <dt>Verify</dt>
     <dd><a href={verifyUrl}>Instructions</a></dd>
   </dl>

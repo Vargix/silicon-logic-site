@@ -8,6 +8,8 @@ export interface Props {
   description?: string;
   themeColor?: string;
   pageType?: "home" | "archive" | "page";
+  ogImage?: string;
+  canonicalUrl?: string;
 }
 
 const {
@@ -15,6 +17,8 @@ const {
   description,
   themeColor,
   pageType = "page",
+  ogImage,
+  canonicalUrl,
 } = Astro.props;
 ---
 
@@ -22,6 +26,8 @@ const {
   title={title}
   description={description}
   themeColor={themeColor}
+  ogImage={ogImage}
+  canonicalUrl={canonicalUrl}
   pageType={pageType}
 >
   <SiteHeader slot="header" />

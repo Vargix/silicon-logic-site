@@ -1,25 +1,80 @@
 ---
 import IndexLayout from "../layouts/IndexLayout.astro";
-import TrackLabel from "../components/TrackLabel.astro";
 import SignedBadge from "../components/SignedBadge.astro";
+import TrackLabel from "../components/TrackLabel.astro";
+import {
+  formatDate,
+  getArticlePath,
+  getArticles,
+  getReadingTimeMinutes,
+  SITE_DESCRIPTION,
+  TRACK_LABELS,
+} from "../lib/articles";
+
+const articles = await getArticles();
+const [leadArticle, ...remainingArticles] = articles;
+const recentArticles = remainingArticles.slice(0, 3);
 ---
 
 <IndexLayout
   title="Silicon Logic"
-  description="Analytical AI hardware publication focused on reviews, benchmarks, and signed methodology."
+  description={SITE_DESCRIPTION}
   pageType="home"
+  canonicalUrl="/"
 >
-  <section class="prose">
-    <TrackLabel track="methodology" />
-    <h1>Analytical AI hardware, measured with artifacts attached.</h1>
-    <p>
-      Silicon Logic publishes long-form reviews and benchmark analysis for local inference systems, with a bias
-      toward durable explanations over launch-window reaction.
-    </p>
-    <p>
-      Phase 1 of the site build is the design system. Review the implementation at
-      <a href="/styleguide/">/styleguide</a>, including the signed-run treatment
-      <SignedBadge runId="2026-05-14-llama" />.
-    </p>
-  </section>
+  {leadArticle ? (
+    <section class="home-lead">
+      <TrackLabel track={leadArticle.data.track} />
+      <h1><a href={getArticlePath(leadArticle)}>{leadArticle.data.title}</a></h1>
+      <p>{leadArticle.data.description}</p>
+      <div class="home-lead__meta">
+        <span>{leadArticle.data.author}</span>
+        <span aria-hidden="true">&middot;</span>
+        <time datetime={leadArticle.data.date.toISOString()}>{formatDate(leadArticle.data.date)}</time>
+        <span aria-hidden="true">&middot;</span>
+        <span>{getReadingTimeMinutes(leadArticle)} min read</span>
+      </div>
+      {leadArticle.data.signed && leadArticle.data.signed_run && (
+        <p class="article-inline-badge">
+          <SignedBadge runId={leadArticle.data.signed_run} />
+        </p>
+      )}
+    </section>
+  ) : (
+    <section class="home-lead">
+      <TrackLabel track="methodology" />
+      <h1>Analytical AI hardware, measured with artifacts attached.</h1>
+      <p>
+        Silicon Logic is preparing its first signed benchmark essays. The publication is being built around
+        articles that can age into reference material: reviews, benchmark reports, and notes where the method
+        matters as much as the result.
+      </p>
+      <p class="meta-text">The content pipeline is ready; articles will appear here as they clear editorial verification.</p>
+    </section>
+  )}
+
+  {recentArticles.length > 0 ? (
+    <section aria-labelledby="recent-heading">
+      <h2 id="recent-heading">Recent</h2>
+      <div class="article-strip">
+        {recentArticles.map((article) => (
+          <article class="article-card">
+            <TrackLabel track={article.data.track} />
+            <h3><a href={getArticlePath(article)}>{article.data.title}</a></h3>
+            <div class="article-card__meta">
+              <span>{TRACK_LABELS[article.data.track]}</span>
+              <span aria-hidden="true">&middot;</span>
+              <time datetime={article.data.date.toISOString()}>{formatDate(article.data.date)}</time>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  ) : (
+    leadArticle && (
+      <p class="meta-text">
+        More articles are being added as the publication ramps up; the front page will stay curated rather than becoming a raw feed.
+      </p>
+    )
+  )}
 </IndexLayout>

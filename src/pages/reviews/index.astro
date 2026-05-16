@@ -1,0 +1,31 @@
+---
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import TrackLabel from "../../components/TrackLabel.astro";
+import { formatDate, getArticlePath, getArticles, TRACK_DESCRIPTIONS } from "../../lib/articles";
+
+const articles = (await getArticles()).filter((article) => article.data.track === "reviews");
+---
+
+<IndexLayout title="Reviews | Silicon Logic" description={TRACK_DESCRIPTIONS.reviews} canonicalUrl="/reviews/">
+  <section class="prose">
+    <TrackLabel track="reviews" />
+    <h1>Reviews</h1>
+    <p>{TRACK_DESCRIPTIONS.reviews}</p>
+  </section>
+
+  {articles.length > 0 ? articles.map((article) => (
+    <article class="archive-row">
+      <div class="archive-row__meta">
+        <time datetime={article.data.date.toISOString()}>{formatDate(article.data.date)}</time>
+      </div>
+      <div>
+        <h2><a href={getArticlePath(article)}>{article.data.title}</a></h2>
+        <p>{article.data.description}</p>
+      </div>
+    </article>
+  )) : (
+    <section class="prose track-empty">
+      <p>Reviews will appear here as hardware and runtime evaluations clear editorial verification.</p>
+    </section>
+  )}
+</IndexLayout>

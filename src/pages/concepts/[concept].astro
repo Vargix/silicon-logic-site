@@ -1,0 +1,77 @@
+---
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import TrackLabel from "../../components/TrackLabel.astro";
+import concepts from "../../data/concepts.json";
+import {
+  formatDate,
+  getArticlePath,
+  getArticles,
+  sortArticles,
+  titleCaseConcept,
+  type ArticleEntry,
+} from "../../lib/articles";
+
+type ConceptConfig = Record<string, { name: string; description: string }>;
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  const conceptConfig = concepts as ConceptConfig;
+  const articleConcepts = new Set(articles.flatMap((article) => article.data.concepts));
+  const slugs = new Set([...Object.keys(conceptConfig), ...articleConcepts]);
+
+  return [...slugs].map((concept) => ({
+    params: { concept },
+    props: {
+      concept,
+      articles: sortArticles(articles.filter((article) => article.data.concepts.includes(concept))),
+    },
+  }));
+}
+
+interface Props {
+  concept: string;
+  articles: ArticleEntry[];
+}
+
+const { concept, articles } = Astro.props;
+const conceptConfig = concepts as ConceptConfig;
+const metadata = conceptConfig[concept] ?? {
+  name: titleCaseConcept(concept),
+  description:
+    "A recurring Silicon Logic concept generated from article metadata. Editorial notes will tighten this description as the archive grows.",
+};
+---
+
+<IndexLayout
+  title={`${metadata.name} | Concepts | Silicon Logic`}
+  description={metadata.description}
+  canonicalUrl={`/concepts/${concept}/`}
+>
+  <section class="prose">
+    <h1>{metadata.name}</h1>
+    <p>{metadata.description}</p>
+  </section>
+
+  {articles.length > 0 ? (
+    <section aria-labelledby="articles-heading">
+      <h2 id="articles-heading">Articles</h2>
+      {articles.map((article) => (
+        <article class="archive-row">
+          <div class="archive-row__meta">
+            <TrackLabel track={article.data.track} />
+            <time datetime={article.data.date.toISOString()}>{formatDate(article.data.date)}</time>
+          </div>
+          <div>
+            <h3><a href={getArticlePath(article)}>{article.data.title}</a></h3>
+            <p>{article.data.description}</p>
+          </div>
+        </article>
+      ))}
+    </section>
+  ) : (
+    <p class="concept-description">
+      No published article is tagged with this concept yet. The page exists so early references have a stable
+      destination as the archive fills in.
+    </p>
+  )}
+</IndexLayout>

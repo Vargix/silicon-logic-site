@@ -1,0 +1,31 @@
+---
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import concepts from "../../data/concepts.json";
+
+const conceptEntries = Object.entries(concepts).sort(([, a], [, b]) =>
+  a.name.localeCompare(b.name),
+);
+---
+
+<IndexLayout
+  title="Concepts | Silicon Logic"
+  description="Silicon Logic concepts taxonomy for recurring analytical frameworks across reviews, benchmarks, and notes."
+  canonicalUrl="/concepts/"
+>
+  <section class="prose">
+    <h1>Concepts</h1>
+    <p>
+      Concepts are the connective tissue of the archive: memory models, runtime behaviors, and verification
+      practices that recur across individual articles.
+    </p>
+  </section>
+
+  <div class="concept-grid">
+    {conceptEntries.map(([slug, concept]) => (
+      <article class="article-card">
+        <h2><a href={`/concepts/${slug}/`}>{concept.name}</a></h2>
+        <p>{concept.description}</p>
+      </article>
+    ))}
+  </div>
+</IndexLayout>

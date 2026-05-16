@@ -1,0 +1,31 @@
+---
+import IndexLayout from "../../layouts/IndexLayout.astro";
+import TrackLabel from "../../components/TrackLabel.astro";
+import { formatDate, getArticlePath, getArticles, TRACK_DESCRIPTIONS } from "../../lib/articles";
+
+const articles = (await getArticles()).filter((article) => article.data.track === "benchmarks");
+---
+
+<IndexLayout title="Benchmarks | Silicon Logic" description={TRACK_DESCRIPTIONS.benchmarks} canonicalUrl="/benchmarks/">
+  <section class="prose">
+    <TrackLabel track="benchmarks" />
+    <h1>Benchmarks</h1>
+    <p>{TRACK_DESCRIPTIONS.benchmarks}</p>
+  </section>
+
+  {articles.length > 0 ? articles.map((article) => (
+    <article class="archive-row">
+      <div class="archive-row__meta">
+        <time datetime={article.data.date.toISOString()}>{formatDate(article.data.date)}</time>
+      </div>
+      <div>
+        <h2><a href={getArticlePath(article)}>{article.data.title}</a></h2>
+        <p>{article.data.description}</p>
+      </div>
+    </article>
+  )) : (
+    <section class="prose track-empty">
+      <p>Signed benchmark reports will appear here once the first run artifacts are ready for publication.</p>
+    </section>
+  )}
+</IndexLayout>

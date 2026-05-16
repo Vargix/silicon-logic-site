@@ -2,7 +2,7 @@
 import TrackLabel from "./TrackLabel.astro";
 
 export interface Props {
-  trackLabel: "reviews" | "benchmarks" | "methodology";
+  trackLabel: "reviews" | "benchmarks" | "notes" | "methodology";
   title: string;
   dek?: string;
   author: string;
@@ -23,7 +23,8 @@ const formattedDate = new Intl.DateTimeFormat("en-US", {
   month: "long",
   day: "numeric",
   year: "numeric",
-}).format(new Date(`${date}T00:00:00`));
+  timeZone: "UTC",
+}).format(new Date(`${date}T00:00:00Z`));
 ---
 
 <header class="byline">
