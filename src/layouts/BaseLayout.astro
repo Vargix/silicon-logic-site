@@ -8,14 +8,27 @@ export interface Props {
   description?: string;
   themeColor?: string;
   pageType?: "home" | "article" | "archive" | "page";
+  ogType?: "website" | "article";
+  ogImage?: string;
+  canonicalUrl?: string;
 }
 
 const {
   title,
-  description,
+  description = "Silicon Logic publishes signed benchmarks, technical reviews, and analytical notes on AI hardware and inference runtimes. Every numeric claim is verifiable. Methodology is open.",
   themeColor = "#fbfaf7",
   pageType = "page",
+  ogType = pageType === "article" ? "article" : "website",
+  ogImage = "/og-image/default.png",
+  canonicalUrl,
 } = Astro.props;
+
+const site = Astro.site ?? new URL("https://siliconlogic.dev");
+const absoluteCanonicalUrl = canonicalUrl
+  ? new URL(canonicalUrl, site).toString()
+  : new URL(Astro.url.pathname, site).toString();
+const absoluteOgImage = new URL(ogImage, site).toString();
+const resolvedTitle = title || "Silicon Logic";
 ---
 
 <!DOCTYPE html>
@@ -25,10 +38,21 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <title>{title}</title>
-    {description && <meta name="description" content={description} />}
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>{resolvedTitle}</title>
+    <meta name="description" content={description} />
     <meta name="theme-color" content={themeColor} />
+    <link rel="canonical" href={absoluteCanonicalUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={resolvedTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:url" content={absoluteCanonicalUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={resolvedTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOgImage} />
 
     <script is:inline>
       (function() {
