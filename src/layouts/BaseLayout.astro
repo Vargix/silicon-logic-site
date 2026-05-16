@@ -1,0 +1,56 @@
+---
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/components.css";
+
+export interface Props {
+  title: string;
+  description?: string;
+  themeColor?: string;
+  pageType?: "home" | "article" | "archive" | "page";
+}
+
+const {
+  title,
+  description,
+  themeColor = "#fbfaf7",
+  pageType = "page",
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="theme-color" content={themeColor} />
+
+    <script is:inline>
+      (function() {
+        try {
+          var stored = localStorage.getItem('silicon-logic-theme');
+          var theme = stored ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch(e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+
+    <link rel="preload" as="font" type="font/woff2"
+          href="/fonts/tiempos/tiempos-text-web-regular.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2"
+          href="/fonts/inter/Inter-Medium.woff2" crossorigin />
+  </head>
+  <body data-page-type={pageType}>
+    <slot name="header" />
+    <main><slot /></main>
+    <slot name="footer" />
+  </body>
+</html>
