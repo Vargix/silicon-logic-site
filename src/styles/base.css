@@ -167,20 +167,22 @@ button {
 }
 
 a {
-  color: var(--accent);
+  color: var(--link-fg);
   text-decoration: underline;
+  text-decoration-color: var(--link-fg);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
   text-decoration-skip-ink: auto;
 }
 
 a:hover {
-  color: var(--accent-hover);
+  /* Hover affordance via underline thickness only; color stays for legibility. */
   text-decoration-thickness: 2px;
 }
 
 a:visited {
-  color: var(--accent-visited);
+  color: var(--link-fg-visited);
+  text-decoration-color: var(--link-fg-visited);
 }
 
 p,
@@ -319,6 +321,8 @@ h6 {
 }
 
 .prose a {
+  /* Article prose: dark text with accent underline.
+     Accent functions as visual marker, text stays high-contrast. */
   color: inherit;
   text-decoration: underline;
   text-decoration-color: var(--accent);
@@ -327,7 +331,14 @@ h6 {
 }
 
 .prose a:hover {
-  color: var(--accent);
+  /* Hover affordance via underline thickness; text color stays for legibility. */
+  text-decoration-thickness: 2px;
+}
+
+.prose a:visited {
+  /* Visited prose links: muted text, muted underline. */
+  color: var(--fg-muted);
+  text-decoration-color: var(--fg-muted);
 }
 
 code,

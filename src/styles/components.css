@@ -42,20 +42,27 @@
   font-size: var(--size-meta);
   line-height: var(--lh-meta);
   font-weight: 500;
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.site-nav a:hover,
-.site-footer a:hover {
-  color: var(--accent-hover);
+  color: var(--link-fg);
   text-decoration: underline;
+  text-decoration-color: var(--link-fg);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
 
+.site-nav a:hover,
+.site-footer a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.site-nav a:visited,
+.site-footer a:visited {
+  color: var(--link-fg-visited);
+  text-decoration-color: var(--link-fg-visited);
+}
+
 .site-nav a[aria-current="page"] {
   color: var(--fg-default);
+  text-decoration-color: var(--fg-default);
 }
 
 .mobile-nav {
@@ -110,8 +117,20 @@
   padding: 0.6rem 0.35rem;
   font-family: var(--font-sans);
   font-size: 1rem;
-  color: var(--accent);
-  text-decoration: none;
+  color: var(--link-fg);
+  text-decoration: underline;
+  text-decoration-color: var(--link-fg);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.mobile-nav__panel a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.mobile-nav__panel a:visited {
+  color: var(--link-fg-visited);
+  text-decoration-color: var(--link-fg-visited);
 }
 
 .site-footer {
@@ -409,6 +428,10 @@
   text-decoration: none;
 }
 
+.wordmark:visited {
+  color: var(--fg-default);
+}
+
 .wordmark--large {
   font-size: 4rem;
   line-height: 1;
@@ -496,12 +519,19 @@
 
   .toc a {
     color: var(--fg-muted);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: var(--fg-muted);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
   }
 
   .toc a:hover {
-    color: var(--accent);
-    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  .toc a:visited {
+    color: var(--fg-muted);
+    text-decoration-color: var(--fg-muted);
   }
 }
 
@@ -526,6 +556,16 @@
   font-size: var(--size-meta);
   font-weight: 600;
   color: var(--fg-subtle);
+}
+
+.styleguide-link-visited {
+  color: var(--link-fg-visited);
+  text-decoration-color: var(--link-fg-visited);
+}
+
+.prose .styleguide-link-visited {
+  color: var(--fg-muted);
+  text-decoration-color: var(--fg-muted);
 }
 
 .styleguide-grid {

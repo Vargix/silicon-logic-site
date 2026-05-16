@@ -21,6 +21,11 @@
   --accent-hover: oklch(50% 0.16 55); /* #a85a25 deeper on hover */
   --accent-visited: oklch(45% 0.10 35); /* #88553a muted brown for visited */
 
+  /* Link colors - accent is brand-color-only; links use high-contrast text.
+     Underline carries link semantics; color carries readability. */
+  --link-fg: var(--fg-default); /* 15.59:1 on bg-canvas (AAA) */
+  --link-fg-visited: var(--fg-muted); /* 6.01:1 on bg-canvas (AA body) */
+
   /* Signed-artifact semantic - muted teal, distinct from accent */
   --signed-fg: oklch(45% 0.08 195); /* #2c6470 muted teal */
   --signed-bg: oklch(94% 0.02 195); /* #dde8ec badge surface */
@@ -48,6 +53,10 @@
   --accent: oklch(75% 0.13 55); /* #e8a877 lifted warm orange */
   --accent-hover: oklch(82% 0.11 55); /* #f0bd95 brighter on hover */
   --accent-visited: oklch(65% 0.08 35); /* #b6906f */
+
+  /* Link colors - accent is brand-color-only; links use high-contrast text. */
+  --link-fg: var(--fg-default); /* 14.77:1 on bg-canvas (AAA) */
+  --link-fg-visited: var(--fg-muted); /* 7.55:1 on bg-canvas (AAA) */
 
   /* Signed-artifact semantic */
   --signed-fg: oklch(78% 0.09 195); /* #82c0cc lifted teal */

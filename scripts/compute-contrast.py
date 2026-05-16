@@ -17,24 +17,26 @@ class Pair:
 
 
 LIGHT_MODE = [
-    Pair("fg-default on bg-canvas", "#1f2024", "#fbfaf7", "15.9:1", 15.9),
-    Pair("fg-default on bg-elevated", "#1f2024", "#ffffff", "16.6:1", 16.6),
-    Pair("fg-muted on bg-canvas", "#5e6068", "#fbfaf7", "6.9:1", 6.9),
-    Pair("fg-subtle on bg-canvas", "#8a8c93", "#fbfaf7", "3.8:1", 3.8),
-    Pair("accent on bg-canvas", "#c87238", "#fbfaf7", "5.2:1", 5.2),
-    Pair("accent-visited on bg-canvas", "#88553a", "#fbfaf7", "4.6:1", 4.6),
-    Pair("fg-default on bg-code-inline", "#1f2024", "#efece5", "14.5:1", 14.5),
-    Pair("signed-fg on signed-bg", "#2c6470", "#dde8ec", "5.4:1", 5.4),
+    Pair("fg-default on bg-canvas", "#1f2024", "#fbfaf7", "15.59:1", 15.59),
+    Pair("fg-default on bg-elevated", "#1f2024", "#ffffff", "16.27:1", 16.27),
+    Pair("fg-muted on bg-canvas", "#5e6068", "#fbfaf7", "6.01:1", 6.01),
+    Pair("fg-subtle on bg-canvas", "#8a8c93", "#fbfaf7", "3.22:1", 3.22),
+    Pair("link-fg on bg-canvas", "#1f2024", "#fbfaf7", "15.59:1", 15.59),
+    Pair("link-fg-visited on bg-canvas", "#5e6068", "#fbfaf7", "6.01:1", 6.01),
+    Pair("accent on bg-canvas (decorative/small labels)", "#c87238", "#fbfaf7", "3.40:1", 3.40),
+    Pair("fg-default on bg-code-inline", "#1f2024", "#efece5", "13.79:1", 13.79),
+    Pair("signed-fg on signed-bg", "#2c6470", "#dde8ec", "5.32:1", 5.32),
 ]
 
 DARK_MODE = [
-    Pair("fg-default on bg-canvas", "#e8e5dd", "#111317", "14.7:1", 14.7),
-    Pair("fg-default on bg-elevated", "#e8e5dd", "#1a1d22", "12.4:1", 12.4),
-    Pair("fg-muted on bg-canvas", "#a8a59c", "#111317", "8.0:1", 8.0),
-    Pair("fg-subtle on bg-canvas", "#7d7a71", "#111317", "4.5:1", 4.5),
-    Pair("accent on bg-canvas", "#e8a877", "#111317", "9.2:1", 9.2),
-    Pair("accent-visited on bg-canvas", "#b6906f", "#111317", "6.4:1", 6.4),
-    Pair("signed-fg on signed-bg", "#82c0cc", "#1f323a", "6.7:1", 6.7),
+    Pair("fg-default on bg-canvas", "#e8e5dd", "#111317", "14.77:1", 14.77),
+    Pair("fg-default on bg-elevated", "#e8e5dd", "#1a1d22", "13.42:1", 13.42),
+    Pair("fg-muted on bg-canvas", "#a8a59c", "#111317", "7.55:1", 7.55),
+    Pair("fg-subtle on bg-canvas", "#7d7a71", "#111317", "4.33:1", 4.33),
+    Pair("link-fg on bg-canvas", "#e8e5dd", "#111317", "14.77:1", 14.77),
+    Pair("link-fg-visited on bg-canvas", "#a8a59c", "#111317", "7.55:1", 7.55),
+    Pair("accent on bg-canvas (decorative/small labels)", "#e8a877", "#111317", "9.12:1", 9.12),
+    Pair("signed-fg on signed-bg", "#82c0cc", "#1f323a", "6.58:1", 6.58),
 ]
 
 
@@ -72,7 +74,7 @@ def verdict(ratio: float) -> str:
 
 
 def matches_spec(computed: float, claimed: float) -> bool:
-    return abs(computed - claimed) <= 0.15
+    return abs(computed - claimed) <= 0.01
 
 
 def table_for(pairs: list[Pair]) -> tuple[str, list[str]]:
@@ -111,6 +113,9 @@ def main() -> None:
             "Generated against design system v1 (see `docs/design/site-design-system-v1.md` §2.3).",
             "",
             "Ratios use the WCAG 2.x sRGB relative luminance formula and the hex equivalents annotated in the spec.",
+            "",
+            "Inline prose links use high-contrast text with `--accent` only as `text-decoration-color`; that accent underline is not treated as a foreground text contrast pair.",
+            "The `--accent` text pair below is documented for constrained brand/decorative uses such as uppercase track labels and section kickers.",
             "",
             "## Light mode",
             "",

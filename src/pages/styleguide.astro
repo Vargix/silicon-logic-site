@@ -32,6 +32,8 @@ const lightTokens: Token[] = [
   { name: "--accent", oklch: "oklch(58% 0.14 55)", hex: "#c87238", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
   { name: "--accent-hover", oklch: "oklch(50% 0.16 55)", hex: "#a85a25", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
   { name: "--accent-visited", oklch: "oklch(45% 0.10 35)", hex: "#88553a", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
+  { name: "--link-fg", oklch: "var(--fg-default)", hex: "#1f2024", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
+  { name: "--link-fg-visited", oklch: "var(--fg-muted)", hex: "#5e6068", compareTo: "--bg-canvas", compareHex: "#fbfaf7" },
   { name: "--signed-fg", oklch: "oklch(45% 0.08 195)", hex: "#2c6470", compareTo: "--signed-bg", compareHex: "#dde8ec" },
   { name: "--signed-bg", oklch: "oklch(94% 0.02 195)", hex: "#dde8ec", compareTo: "--signed-fg", compareHex: "#2c6470" },
   { name: "--signed-border", oklch: "oklch(75% 0.06 195)", hex: "#8db5be", compareTo: "--fg-default", compareHex: "#1f2024" },
@@ -51,6 +53,8 @@ const darkTokens: Token[] = [
   { name: "--accent", oklch: "oklch(75% 0.13 55)", hex: "#e8a877", compareTo: "--bg-canvas", compareHex: "#111317" },
   { name: "--accent-hover", oklch: "oklch(82% 0.11 55)", hex: "#f0bd95", compareTo: "--bg-canvas", compareHex: "#111317" },
   { name: "--accent-visited", oklch: "oklch(65% 0.08 35)", hex: "#b6906f", compareTo: "--bg-canvas", compareHex: "#111317" },
+  { name: "--link-fg", oklch: "var(--fg-default)", hex: "#e8e5dd", compareTo: "--bg-canvas", compareHex: "#111317" },
+  { name: "--link-fg-visited", oklch: "var(--fg-muted)", hex: "#a8a59c", compareTo: "--bg-canvas", compareHex: "#111317" },
   { name: "--signed-fg", oklch: "oklch(78% 0.09 195)", hex: "#82c0cc", compareTo: "--signed-bg", compareHex: "#1f323a" },
   { name: "--signed-bg", oklch: "oklch(25% 0.04 195)", hex: "#1f323a", compareTo: "--signed-fg", compareHex: "#82c0cc" },
   { name: "--signed-border", oklch: "oklch(45% 0.07 195)", hex: "#4a7681", compareTo: "--fg-default", compareHex: "#e8e5dd" },
@@ -145,6 +149,30 @@ print(peak)`;
         <p><em>Body italic</em> carries emphasis through shape, while <strong>body bold</strong> is reserved for moments that need stronger editorial pressure.</p>
         <p class="footnote">Footnote-size paragraph: Tiempos Text Web, 15px/1.5, §2.4</p>
         <p class="meta-text">Meta text: Inter Medium, 13px/1.4, §2.4</p>
+      </div>
+
+      <h3>Link Patterns</h3>
+      <div class="styleguide-grid">
+        <p>
+          <span class="meta-text">Base link:</span>
+          <a href="/about/">high-contrast text with matching underline</a>
+        </p>
+        <p>
+          <span class="meta-text">Base visited sample:</span>
+          <a class="styleguide-link-visited" href="/archive/">muted text with muted underline</a>
+        </p>
+        <p>
+          <span class="meta-text">Accent as text marker:</span>
+          <TrackLabel track="reviews" />
+        </p>
+      </div>
+      <div class="prose">
+        <p>
+          Prose link:
+          <a href="/methodology/inference/">high-contrast text with an accent underline</a>.
+          Visited prose sample:
+          <a class="styleguide-link-visited" href="/concepts/">muted text with muted underline</a>.
+        </p>
       </div>
     </section>
 

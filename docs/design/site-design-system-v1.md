@@ -20,7 +20,7 @@ These principles govern every decision below. When future revisions arise, decis
 
 **1.3 The archive is the product.** Design decisions optimize for the corpus that exists at year five, not the home page at month one. Hierarchical URLs without dates. Methodology and analytical frameworks as first-class content. Concepts taxonomy (Stratechery-pattern) for surfacing the analytical methods used across reviews.
 
-**1.4 Single restrained accent, used semantically.** One warm accent color for links and editorial identity. A distinct semantic color for the signed-artifact badge. No third accent for decoration. The accent does semantic work; everywhere else is body text color.
+**1.4 Single restrained accent, used semantically.** One warm accent color for editorial identity, link underlines, track labels, and focus/selection affordances. A distinct semantic color for the signed-artifact badge. No third accent for decoration. The accent does semantic work; body-sized link text remains high-contrast text color.
 
 **1.5 Verifiability is part of the design.** Every benchmark artifact gets a visible cryptographic-signature treatment. The signed-runs methodology page is surfaced in primary navigation, not buried. The design materially communicates that Silicon Logic publishes signed work.
 
@@ -59,6 +59,11 @@ All tokens defined in CSS custom properties in `:root` and `[data-theme="dark"]`
   --accent-hover: oklch(50% 0.16 55);    /* #a85a25 deeper on hover */
   --accent-visited: oklch(45% 0.10 35);  /* #88553a muted brown for visited */
 
+  /* Link colors — accent is brand-color-only; links use high-contrast text.
+     Underline carries link semantics; color carries readability. */
+  --link-fg: var(--fg-default);           /* 15.59:1 on bg-canvas (AAA) */
+  --link-fg-visited: var(--fg-muted);     /* 6.01:1 on bg-canvas (AA body) */
+
   /* Signed-artifact semantic — muted teal, distinct from accent */
   --signed-fg: oklch(45% 0.08 195);      /* #2c6470 muted teal */
   --signed-bg: oklch(94% 0.02 195);      /* #dde8ec badge surface */
@@ -91,6 +96,10 @@ All tokens defined in CSS custom properties in `:root` and `[data-theme="dark"]`
   --accent-hover: oklch(82% 0.11 55);    /* #f0bd95 brighter on hover */
   --accent-visited: oklch(65% 0.08 35);  /* #b6906f */
 
+  /* Link colors — accent is brand-color-only; links use high-contrast text. */
+  --link-fg: var(--fg-default);           /* 14.77:1 on bg-canvas (AAA) */
+  --link-fg-visited: var(--fg-muted);     /* 7.55:1 on bg-canvas (AAA) */
+
   /* Signed-artifact semantic */
   --signed-fg: oklch(78% 0.09 195);      /* #82c0cc lifted teal */
   --signed-bg: oklch(25% 0.04 195);      /* #1f323a */
@@ -106,28 +115,32 @@ All foreground-background pairs computed from sRGB equivalents.
 
 | Pair | Ratio | Verdict |
 |---|---|---|
-| fg-default on bg-canvas | 15.9:1 | Exceeds AAA (7:1) |
-| fg-default on bg-elevated | 16.6:1 | Exceeds AAA |
-| fg-muted on bg-canvas | 6.9:1 | AA body, near AAA |
-| fg-subtle on bg-canvas | 3.8:1 | AA large only (≥18pt) — metadata only |
-| accent on bg-canvas | 5.2:1 | AA body |
-| accent-visited on bg-canvas | 4.6:1 | AA body |
-| fg-default on bg-code-inline | 14.5:1 | Exceeds AAA |
-| signed-fg on signed-bg | 5.4:1 | AA body |
+| fg-default on bg-canvas | 15.59:1 | Exceeds AAA (7:1) |
+| fg-default on bg-elevated | 16.27:1 | Exceeds AAA |
+| fg-muted on bg-canvas | 6.01:1 | AA body |
+| fg-subtle on bg-canvas | 3.22:1 | AA large only — metadata only |
+| link-fg on bg-canvas | 15.59:1 | Exceeds AAA |
+| link-fg-visited on bg-canvas | 6.01:1 | AA body |
+| accent on bg-canvas | 3.40:1 | AA large only — constrained to brand/decorative use |
+| fg-default on bg-code-inline | 13.79:1 | Exceeds AAA |
+| signed-fg on signed-bg | 5.32:1 | AA body |
 
 **Dark mode:**
 
 | Pair | Ratio | Verdict |
 |---|---|---|
-| fg-default on bg-canvas | 14.7:1 | Exceeds AAA |
-| fg-default on bg-elevated | 12.4:1 | Exceeds AAA |
-| fg-muted on bg-canvas | 8.0:1 | Exceeds AAA |
-| fg-subtle on bg-canvas | 4.5:1 | AA body (tight — metadata only) |
-| accent on bg-canvas | 9.2:1 | Exceeds AAA |
-| accent-visited on bg-canvas | 6.4:1 | AA body |
-| signed-fg on signed-bg | 6.7:1 | AA body, near AAA |
+| fg-default on bg-canvas | 14.77:1 | Exceeds AAA |
+| fg-default on bg-elevated | 13.42:1 | Exceeds AAA |
+| fg-muted on bg-canvas | 7.55:1 | Exceeds AAA |
+| fg-subtle on bg-canvas | 4.33:1 | AA large only — metadata only |
+| link-fg on bg-canvas | 14.77:1 | Exceeds AAA |
+| link-fg-visited on bg-canvas | 7.55:1 | Exceeds AAA |
+| accent on bg-canvas | 9.12:1 | Exceeds AAA |
+| signed-fg on signed-bg | 6.58:1 | AA body |
 
-All pairs designed against WCAG 2.2 AA as floor, AAA where achievable for body text. APCA scores not specified (APCA still not in WCAG 3 working draft as of August 2025) but should be run as a sanity check against the same color pairs in `docs/color-contrast.md` as a future artifact.
+All body-sized text pairs are designed against WCAG 2.2 AA as floor, AAA where achievable. Accent text use is constrained to small uppercase brand/decorative treatments where AA-large is acceptable in light mode. APCA scores not specified (APCA still not in WCAG 3 working draft as of August 2025) but should be run as a sanity check against the same color pairs in `docs/color-contrast.md` as a future artifact.
+
+Accent (`--accent`) is a brand color used for decoration: focus outlines, selection highlights, prose link underlines, track labels, section kickers, and dividers. Inline link text uses `--link-fg` (high-contrast text-on-canvas) with `--accent` as `text-decoration-color`. Hover states are signaled by underline thickness changes, not color changes. Visited prose links use `--fg-muted`. This separates link semantics (underline) from brand identity (warm accent) and maintains WCAG 2.2 AA-body floor for all body-sized text.
 
 ### 2.4 Type scale tokens
 
@@ -516,24 +529,28 @@ Not used for: body text (always Regular), section headers (always Inter Semibold
 
 ```css
 a {
-  color: var(--accent);
+  color: var(--link-fg);
   text-decoration: underline;
+  text-decoration-color: var(--link-fg);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
   text-decoration-skip-ink: auto;
 }
 
 a:hover {
-  color: var(--accent-hover);
+  /* Hover affordance via underline thickness only; color stays for legibility */
   text-decoration-thickness: 2px;
 }
 
 a:visited {
-  color: var(--accent-visited);
+  color: var(--link-fg-visited);
+  text-decoration-color: var(--link-fg-visited);
 }
 
 /* Links inside body prose specifically — slightly different treatment */
 .prose a {
+  /* Article prose: dark text with accent underline.
+     Accent functions as visual marker, text stays high-contrast. */
   color: inherit;
   text-decoration: underline;
   text-decoration-color: var(--accent);
@@ -542,27 +559,34 @@ a:visited {
 }
 
 .prose a:hover {
-  color: var(--accent);
+  /* Hover affordance via underline thickness; text color stays for legibility */
+  text-decoration-thickness: 2px;
+}
+
+.prose a:visited {
+  /* Visited prose links: muted text, muted underline */
+  color: var(--fg-muted);
+  text-decoration-color: var(--fg-muted);
 }
 ```
 
-The principle: navigation links use the accent color as the primary signal. Body-prose links inherit body color but use the accent color for the underline, so the link affordance is visible without the accent fighting the prose.
+The principle: link semantics come from underline treatment and high-contrast text. Body-prose links inherit body color but use the accent color for the underline, so the brand marker is visible without the accent fighting the prose or failing AA-body contrast.
 
 ### 4.2 Accent color usage discipline
 
 The warm orange/amber accent appears only at:
 - **Inline body-prose link underlines**
-- **Navigation links** (active and hover states)
-- **Track labels** in the byline area (uppercase, small)
+- **Focus outlines and selection highlights**
+- **Track labels** in the byline area (uppercase, small; AA-large acceptable)
+- **Section kickers / divider labels** (uppercase, small; AA-large acceptable)
 - **The publication wordmark** "Silicon Logic" in the header (optional — could also be `--fg-default`)
 
 The accent does **not** appear at:
 - Buttons (use bordered Inter Medium with `--fg-default` color)
-- Section dividers
-- Decorative rules
 - Background tints
 - Pull quotes (use `--border-default` left border)
-- Anything ornamental
+- Body-sized link text
+- Callouts or signed-artifact treatments (use signed semantic color)
 
 ### 4.3 Signed-artifact color usage discipline
 
