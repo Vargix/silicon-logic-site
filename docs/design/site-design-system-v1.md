@@ -256,7 +256,7 @@ All fonts self-hosted as WOFF2. Klim-licensed fonts served from outside the publ
 /* Tiempos Text Web (body, screen-optimized) */
 @font-face {
   font-family: "Tiempos Text Web";
-  src: url("/fonts/tiempos/TiemposTextWeb-Regular.woff2") format("woff2");
+  src: url("/fonts/tiempos/tiempos-text-web-regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -264,7 +264,7 @@ All fonts self-hosted as WOFF2. Klim-licensed fonts served from outside the publ
 
 @font-face {
   font-family: "Tiempos Text Web";
-  src: url("/fonts/tiempos/TiemposTextWeb-RegularItalic.woff2") format("woff2");
+  src: url("/fonts/tiempos/tiempos-text-web-regular-italic.woff2") format("woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -272,7 +272,7 @@ All fonts self-hosted as WOFF2. Klim-licensed fonts served from outside the publ
 
 @font-face {
   font-family: "Tiempos Text Web";
-  src: url("/fonts/tiempos/TiemposTextWeb-Semibold.woff2") format("woff2");
+  src: url("/fonts/tiempos/tiempos-text-web-semibold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -280,7 +280,7 @@ All fonts self-hosted as WOFF2. Klim-licensed fonts served from outside the publ
 
 @font-face {
   font-family: "Tiempos Text Web";
-  src: url("/fonts/tiempos/TiemposTextWeb-SemiboldItalic.woff2") format("woff2");
+  src: url("/fonts/tiempos/tiempos-text-web-semibold-italic.woff2") format("woff2");
   font-weight: 600;
   font-style: italic;
   font-display: swap;
@@ -289,7 +289,7 @@ All fonts self-hosted as WOFF2. Klim-licensed fonts served from outside the publ
 /* Tiempos Text (Medium and Bold standard cuts, for utility weights) */
 @font-face {
   font-family: "Tiempos Text";
-  src: url("/fonts/tiempos/TiemposText-Medium.woff2") format("woff2");
+  src: url("/fonts/tiempos/tiempos-text-medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -297,7 +297,7 @@ All fonts self-hosted as WOFF2. Klim-licensed fonts served from outside the publ
 
 @font-face {
   font-family: "Tiempos Text";
-  src: url("/fonts/tiempos/TiemposText-Bold.woff2") format("woff2");
+  src: url("/fonts/tiempos/tiempos-text-bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -306,7 +306,7 @@ All fonts self-hosted as WOFF2. Klim-licensed fonts served from outside the publ
 /* Tiempos Headline (masthead/wordmark only) */
 @font-face {
   font-family: "Tiempos Headline";
-  src: url("/fonts/tiempos/TiemposHeadline-Black.woff2") format("woff2");
+  src: url("/fonts/tiempos/tiempos-headline-black.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -314,7 +314,7 @@ All fonts self-hosted as WOFF2. Klim-licensed fonts served from outside the publ
 
 @font-face {
   font-family: "Tiempos Headline";
-  src: url("/fonts/tiempos/TiemposHeadline-Bold.woff2") format("woff2");
+  src: url("/fonts/tiempos/tiempos-headline-web-bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -367,7 +367,7 @@ All fonts self-hosted as WOFF2. Klim-licensed fonts served from outside the publ
 
 ```html
 <link rel="preload" as="font" type="font/woff2"
-      href="/fonts/tiempos/TiemposTextWeb-Regular.woff2" crossorigin>
+      href="/fonts/tiempos/tiempos-text-web-regular.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2"
       href="/fonts/inter/Inter-Medium.woff2" crossorigin>
 ```
