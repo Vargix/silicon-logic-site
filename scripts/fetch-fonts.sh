@@ -72,7 +72,7 @@ if [ -n "${FONTS_DEPLOY_KEY:-}" ]; then
   export GIT_SSH_COMMAND="ssh -i ${TEMP_SSH_KEY} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
 
   echo "fetch-fonts.sh: cloning ${FONTS_REPO_SSH} (depth=1, branch=${FONTS_BRANCH})"
-  git clone --depth 1 --branch "${FONTS_BRANCH}" "${FONTS_REPO_SSH}" "${CLONE_DIR}"
+  git -c url."git@github.com:".insteadOf="" -c url."ssh://git@github.com/".insteadOf="" clone --depth 1 --branch "${FONTS_BRANCH}" "${FONTS_REPO_SSH}" "${CLONE_DIR}"
 else
   # Local mode: rely on your normal git auth (HTTPS with credential helper or
   # SSH agent if you have one configured for github.com)
