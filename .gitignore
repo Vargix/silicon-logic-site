@@ -24,3 +24,9 @@ pnpm-debug.log*
 .idea/
 
 .env.local
+
+# Klim-licensed Tiempos fonts (fetched at build time from private repo)
+# Do NOT commit these - they are not licensed for public distribution
+public/fonts/tiempos/*.woff2
+public/fonts/tiempos/*.woff
+public/fonts/tiempos/*.otf
