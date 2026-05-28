@@ -251,9 +251,9 @@ function ImageSprite({
     <div style={{
       width: '100%', height: '100%',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: 'repeating-linear-gradient(135deg, #e9e6df 0 10px, #dcd8cf 10px 20px)',
-      color: '#6b6458',
-      fontFamily: 'JetBrains Mono, ui-monospace, monospace',
+      background: 'repeating-linear-gradient(135deg, var(--sl-motion-placeholder-a) 0 10px, var(--sl-motion-placeholder-b) 10px 20px)',
+      color: 'var(--sl-motion-placeholder-ink)',
+      fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
       fontSize: 13,
       letterSpacing: '0.04em',
       textTransform: 'uppercase',
