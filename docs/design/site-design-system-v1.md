@@ -963,7 +963,7 @@ Signed Run Footer Block:
   │ Run ID: 2026-05-14-1830-llama   │
   │ Artifact: artifacts/<sha-prefix>│
   │ Methodology: /methodology/...   │
-  │ Verify: github.com/Vargix/...   │
+  │ Verify: github.com/Silicon-Logic/...   │
   └─────────────────────────────────┘
 
 Series Navigation (if applicable):
@@ -1028,7 +1028,7 @@ Two variants: inline (within prose) and footer (large, end-of-article).
     <dt>Run ID</dt><dd><code>2026-05-14-1830-llama</code></dd>
     <dt>Artifact</dt><dd><a href="/artifacts/abc123...">SHA-256: abc123...</a></dd>
     <dt>Methodology</dt><dd><a href="/methodology/inference">v2.1</a></dd>
-    <dt>Verify</dt><dd><a href="https://github.com/Vargix/silicon-logic#verifying">Instructions</a></dd>
+    <dt>Verify</dt><dd><a href="https://github.com/Silicon-Logic/silicon-logic#verifying">Instructions</a></dd>
   </dl>
 </aside>
 ```

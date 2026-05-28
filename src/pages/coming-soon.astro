@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const description =
+  "Silicon Logic is preparing rigorous local AI inference benchmarks with signed run provenance, pre-registered methodology, and full raw output release.";
+---
+
+<BaseLayout
+  title="Silicon Logic — Coming Soon"
+  description={description}
+  canonicalUrl="/"
+  pageType="home"
+  ogImage="/og-image/default.png"
+>
+  <article class="coming-soon" aria-labelledby="coming-soon-title">
+    <p class="coming-soon__eyebrow">Coming Soon</p>
+    <h1 id="coming-soon-title">Silicon Logic</h1>
+    <p class="coming-soon__tagline">
+      Rigorous benchmarks for local AI inference, with cryptographic provenance and pre-registered methodology.
+    </p>
+
+    <div class="coming-soon__body">
+      <section class="coming-soon__section" aria-labelledby="first-article-heading">
+        <h2 id="first-article-heading">First Report</h2>
+        <p>
+          Article 1 measures llama.cpp against mlx_lm on Apple Silicon, using an M5 Max with 36 GB of
+          unified memory. It includes thermal disclosure, wall and SoC power measurement, perplexity
+          guardrails, and the full raw output release.
+        </p>
+        <p>
+          The report will publish with a pre-registration document and signed run hashes, so the benchmark
+          record is auditable instead of anecdotal.
+        </p>
+      </section>
+
+      <section class="coming-soon__section" aria-labelledby="methodology-preview-heading">
+        <h2 id="methodology-preview-heading">Methodology Preview</h2>
+        <p>
+          Silicon Logic treats methodology as part of the artifact: run plans are pre-registered, raw
+          outputs are preserved, and claims are tied back to signed measurement records. The methodology
+          paper is forthcoming and will document the benchmark harness, measurement boundaries, and
+          reporting rules before the first review lands.
+        </p>
+      </section>
+
+      <section class="coming-soon__section" aria-labelledby="signup-heading">
+        <h2 id="signup-heading">Get the Launch Note</h2>
+        <div id="email-signup" class="coming-soon__signup">
+          <p>Email signup will appear here before launch.</p>
+        </div>
+      </section>
+    </div>
+  </article>
+
+  <footer class="coming-soon__footer" aria-label="Silicon Logic links">
+    <a href="https://x.com/SiliconLogicDev">X: @SiliconLogicDev</a>
+    <a href="https://github.com/Silicon-Logic/silicon-logic">GitHub: Silicon-Logic/silicon-logic</a>
+  </footer>
+</BaseLayout>

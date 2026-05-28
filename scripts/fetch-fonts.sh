@@ -23,8 +23,8 @@ PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 TARGET_DIR="${PROJECT_ROOT}/public/fonts/tiempos"
 
 # Configuration
-FONTS_REPO_SSH="git@github.com:Vargix/silicon-logic-fonts.git"
-FONTS_REPO_HTTPS="https://github.com/Vargix/silicon-logic-fonts.git"
+FONTS_REPO_SSH="git@github.com:Silicon-Logic/silicon-logic-fonts.git"
+FONTS_REPO_HTTPS="https://github.com/Silicon-Logic/silicon-logic-fonts.git"
 FONTS_BRANCH="main"
 TEMP_DIR="$(mktemp -d)"
 CLONE_DIR="${TEMP_DIR}/silicon-logic-fonts"

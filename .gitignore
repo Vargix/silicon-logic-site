@@ -34,3 +34,4 @@ public/fonts/tiempos/*.otf
 # Private article markdown is fetched at build time from silicon-logic-articles
 src/content/articles/**/*.md
 !src/content/articles/.gitkeep
+.playwright-mcp/

@@ -32,7 +32,7 @@ interface Props {
 const { article } = Astro.props;
 const { Content } = await render(article);
 const verifyUrl = article.data.signed_run
-  ? `https://github.com/Vargix/silicon-logic/blob/main/data/runs/${article.data.signed_run}.json`
+  ? `https://github.com/Silicon-Logic/silicon-logic/blob/main/data/runs/${article.data.signed_run}.json`
   : undefined;
 const artifactHash = article.data.artifact_sha;
 const canonicalPath = getArticlePath(article);
