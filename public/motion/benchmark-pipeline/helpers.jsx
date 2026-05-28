@@ -18,6 +18,16 @@ const TOKENS = {
   mono:    '"IBM Plex Mono", ui-monospace, Menlo, monospace',
 };
 
+const MOTION_DURATION = 32;
+const MOTION_SECTIONS = [
+  { start: 0,  end: 5.4,  num: '01', name: 'Pre-registration' },
+  { start: 5,  end: 10.4, num: '02', name: 'Measurement' },
+  { start: 10, end: 15.4, num: '03', name: 'Signed run hash' },
+  { start: 15, end: 20.4, num: '04', name: 'LLM-judge ensemble' },
+  { start: 20, end: 25.4, num: '05', name: 'Anti-pattern guardrails' },
+  { start: 25, end: 32.0, num: '06', name: 'Verdict' },
+];
+
 // ── Letter-by-letter reveal ───────────────────────────────────────────────
 // Reveals characters across [start, start+duration] linearly. Block cursor optional.
 function LetterReveal({ text, start = 0, duration = 1.2, style = {}, cursor = false }) {
@@ -72,16 +82,7 @@ function Hairline({ x = 160, y = 100, w = 1600, color = TOKENS.rule, weight = 1,
 // Beats overlap by 0.4s so labels cross-fade.
 function Chrome() {
   const time = useTime();
-
-  // Section data per beat
-  const sections = [
-    { start: 0,  end: 4.4,  num: '01', name: 'Pre-registration' },
-    { start: 4,  end: 8.4,  num: '02', name: 'Measurement' },
-    { start: 8,  end: 12.4, num: '03', name: 'Signed run hash' },
-    { start: 12, end: 16.4, num: '04', name: 'LLM-judge ensemble' },
-    { start: 16, end: 20.4, num: '05', name: 'Anti-pattern guardrails' },
-    { start: 20, end: 25.0, num: '06', name: 'Verdict' },
-  ];
+  const sections = MOTION_SECTIONS;
 
   // Find which section(s) are active for cross-fade
   const items = sections.map(s => {
@@ -169,7 +170,7 @@ function Chrome() {
         display: 'flex', gap: 8,
       }}>
         {sections.map((s, i) => {
-          const segDur = 25 / 6;
+          const segDur = MOTION_DURATION / sections.length;
           const segStart = i * segDur;
           const p = clamp((time - segStart) / segDur, 0, 1);
           return (
@@ -191,12 +192,13 @@ function Chrome() {
   );
 }
 
-// ── Master fade-in at t=0 and fade-out at t≈24.7 for clean loop ──────────
+// ── Master fade-in at t=0 and fade-out at loop seam for clean repeat ─────
 function LoopFade() {
   const time = useTime();
+  const seamFade = 0.3;
   let op = 1;
-  if (time < 0.3) op = time / 0.3;            // fade up from black-ish at loop seam
-  else if (time > 24.7) op = (25 - time) / 0.3;
+  if (time < seamFade) op = time / seamFade;
+  else if (time > MOTION_DURATION - seamFade) op = (MOTION_DURATION - time) / seamFade;
   op = clamp(op, 0, 1);
   if (op >= 0.999) return null;
   return (
@@ -210,5 +212,6 @@ function LoopFade() {
 }
 
 Object.assign(window, {
-  TOKENS, LetterReveal, CountUp, useBeatOpacity, Hairline, Chrome, LoopFade,
+  TOKENS, MOTION_DURATION, MOTION_SECTIONS,
+  LetterReveal, CountUp, useBeatOpacity, Hairline, Chrome, LoopFade,
 });

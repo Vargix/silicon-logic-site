@@ -3,14 +3,12 @@
 
 // Beat windows. Beats overlap their fade with adjacent beats to read as one piece.
 // Each Beat component internally fades in/out (useBeatOpacity).
-const BEATS = [
-  { start: 0,    end: 4.4,  Comp: Beat1 },
-  { start: 4.0,  end: 8.4,  Comp: Beat2 },
-  { start: 8.0,  end: 12.4, Comp: Beat3 },
-  { start: 12.0, end: 16.4, Comp: Beat4 },
-  { start: 16.0, end: 20.4, Comp: Beat5 },
-  { start: 20.0, end: 25.0, Comp: Beat6 },
-];
+const BEAT_COMPONENTS = [Beat1, Beat2, Beat3, Beat4, Beat5, Beat6];
+const BEATS = window.MOTION_SECTIONS.map((section, index) => ({
+  start: section.start,
+  end: section.end,
+  Comp: BEAT_COMPONENTS[index],
+}));
 
 // Live timestamp label updater for the inline motion root.
 function TimestampLabel() {
@@ -29,9 +27,9 @@ function App() {
   return (
     <div id="motion-root" data-screen-label="t=00s"
          style={{ position: 'absolute', inset: 0 }}>
-      <Stage width={1920} height={1080} duration={25}
+      <Stage width={1920} height={1080} duration={window.MOTION_DURATION}
              background={TOKENS.paper}
-             persistKey="sl-benchmark-v1"
+             persistKey="sl-benchmark-v2"
              controls={false}
              loop={true}>
         <TimestampLabel />
