@@ -14,15 +14,10 @@ const description =
 >
   <article class="coming-soon" aria-labelledby="coming-soon-title">
     <section class="coming-soon__hero">
-      <img
-        class="coming-soon__mark"
-        src="/brand/sl-monogram.png"
-        alt=""
-        width="512"
-        height="512"
-        loading="eager"
-        decoding="async"
-      />
+      <div class="coming-soon__mark" aria-hidden="true">
+        <span class="coming-soon__mark-letter coming-soon__mark-letter--s">S</span>
+        <span class="coming-soon__mark-letter coming-soon__mark-letter--l">L</span>
+      </div>
       <p class="coming-soon__eyebrow">Coming Soon</p>
       <h1 id="coming-soon-title">Silicon Logic</h1>
       <p class="coming-soon__tagline">
@@ -61,48 +56,8 @@ const description =
       </div>
     </section>
 
-    <section class="coming-soon__motion" aria-label="Benchmark pipeline preview">
-      <div class="motion-chrome">
-        <span>Silicon Logic</span>
-        <span>Benchmark methodology · v0.9</span>
-      </div>
-      <div class="motion-stage">
-        <div class="motion-doc" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="motion-copy">
-          <p>Pre-registered methodology.</p>
-          <code>commit a3f9c1b8d2e4 · locked</code>
-        </div>
-        <div class="motion-meter" aria-hidden="true">
-          <span></span>
-        </div>
-        <dl class="motion-metrics">
-          <div>
-            <dt>Throughput</dt>
-            <dd>tokens/s</dd>
-          </div>
-          <div>
-            <dt>Perplexity</dt>
-            <dd>guardrail</dd>
-          </div>
-          <div>
-            <dt>Power</dt>
-            <dd>wall + SoC</dd>
-          </div>
-        </dl>
-        <div class="motion-hash">
-          <span>Signed run hash</span>
-          <code>7d4e1b9a2c8f0e35</code>
-        </div>
-      </div>
-      <div class="motion-footer">
-        <span>01 / 06 · Measurement</span>
-        <span>Auditable, not anecdotal.</span>
-      </div>
+    <section class="coming-soon__motion" aria-label="Benchmark pipeline motion graphic">
+      <div id="sl-motion-root" class="coming-soon__motion-root"></div>
     </section>
 
     <div class="coming-soon__body">
@@ -138,4 +93,13 @@ const description =
     </a>
     <a href="https://github.com/Silicon-Logic">GitHub: Silicon-Logic</a>
   </footer>
+
+  <script is:inline src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script is:inline src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+  <script is:inline src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script is:inline type="text/babel" src="/motion/benchmark-pipeline/animations.jsx"></script>
+  <script is:inline type="text/babel" src="/motion/benchmark-pipeline/helpers.jsx"></script>
+  <script is:inline type="text/babel" src="/motion/benchmark-pipeline/scenes-a.jsx"></script>
+  <script is:inline type="text/babel" src="/motion/benchmark-pipeline/scenes-b.jsx"></script>
+  <script is:inline type="text/babel" src="/motion/benchmark-pipeline/app.jsx"></script>
 </BaseLayout>

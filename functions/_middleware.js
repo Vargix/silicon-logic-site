@@ -26,6 +26,7 @@ function shouldBypassComingSoon(pathname) {
     pathname === "/favicon-32.png" ||
     pathname.startsWith("/coming-soon") ||
     pathname.startsWith("/methodology-preprint") ||
+    pathname.startsWith("/motion/") ||
     pathname.startsWith("/assets/") ||
     pathname.startsWith("/brand/") ||
     pathname.startsWith("/_astro/") ||
