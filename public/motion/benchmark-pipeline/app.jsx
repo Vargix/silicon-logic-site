@@ -29,7 +29,7 @@ function App() {
          style={{ position: 'absolute', inset: 0 }}>
       <Stage width={1920} height={1080} duration={window.MOTION_DURATION}
              background={TOKENS.paper}
-             persistKey="sl-benchmark-v2"
+             persistKey="sl-benchmark-v3"
              controls={false}
              loop={true}>
         <TimestampLabel />

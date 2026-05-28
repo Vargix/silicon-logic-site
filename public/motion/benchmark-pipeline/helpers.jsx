@@ -18,14 +18,14 @@ const TOKENS = {
   mono:    '"IBM Plex Mono", ui-monospace, Menlo, monospace',
 };
 
-const MOTION_DURATION = 32;
+const MOTION_DURATION = 45;
 const MOTION_SECTIONS = [
-  { start: 0,  end: 5.4,  num: '01', name: 'Pre-registration' },
-  { start: 5,  end: 10.4, num: '02', name: 'Measurement' },
-  { start: 10, end: 15.4, num: '03', name: 'Signed run hash' },
-  { start: 15, end: 20.4, num: '04', name: 'LLM-judge ensemble' },
-  { start: 20, end: 25.4, num: '05', name: 'Anti-pattern guardrails' },
-  { start: 25, end: 32.0, num: '06', name: 'Verdict' },
+  { start: 0.0,  end: 7.8,  num: '01', name: 'Pre-registration' },
+  { start: 7.2,  end: 15.0, num: '02', name: 'Measurement' },
+  { start: 14.4, end: 22.2, num: '03', name: 'Signed run hash' },
+  { start: 21.6, end: 30.0, num: '04', name: 'LLM-judge ensemble' },
+  { start: 29.4, end: 37.2, num: '05', name: 'Anti-pattern guardrails' },
+  { start: 36.6, end: 45.0, num: '06', name: 'Verdict' },
 ];
 
 // ── Letter-by-letter reveal ───────────────────────────────────────────────
@@ -79,7 +79,7 @@ function Hairline({ x = 160, y = 100, w = 1600, color = TOKENS.rule, weight = 1,
 }
 
 // ── Persistent chrome — section label, step counter, baseline rules ───────
-// Beats overlap by 0.4s so labels cross-fade.
+// Beats overlap so labels cross-fade while each scene still has a readable hold.
 function Chrome() {
   const time = useTime();
   const sections = MOTION_SECTIONS;
