@@ -23,8 +23,11 @@ function shouldBypassComingSoon(pathname) {
     pathname === "/favicon.svg" ||
     pathname === "/favicon.ico" ||
     pathname === "/apple-touch-icon.png" ||
+    pathname === "/favicon-32.png" ||
     pathname.startsWith("/coming-soon") ||
+    pathname.startsWith("/methodology-preprint") ||
     pathname.startsWith("/assets/") ||
+    pathname.startsWith("/brand/") ||
     pathname.startsWith("/_astro/") ||
     pathname.startsWith("/fonts/") ||
     pathname.startsWith("/og-image/")

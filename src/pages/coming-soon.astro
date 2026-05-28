@@ -10,22 +10,107 @@ const description =
   description={description}
   canonicalUrl="/"
   pageType="home"
-  ogImage="/og-image/default.png"
+  ogImage="/brand/sl-monogram.png"
 >
   <article class="coming-soon" aria-labelledby="coming-soon-title">
-    <p class="coming-soon__eyebrow">Coming Soon</p>
-    <h1 id="coming-soon-title">Silicon Logic</h1>
-    <p class="coming-soon__tagline">
-      Rigorous benchmarks for local AI inference, with cryptographic provenance and pre-registered methodology.
-    </p>
+    <section class="coming-soon__hero">
+      <img
+        class="coming-soon__mark"
+        src="/brand/sl-monogram.png"
+        alt=""
+        width="512"
+        height="512"
+        loading="eager"
+        decoding="async"
+      />
+      <p class="coming-soon__eyebrow">Coming Soon</p>
+      <h1 id="coming-soon-title">Silicon Logic</h1>
+      <p class="coming-soon__tagline">
+        Rigorous benchmarks for local AI inference, with cryptographic provenance and pre-registered methodology.
+      </p>
+
+      <div class="coming-soon__hero-actions">
+        <form
+          id="email-signup"
+          class="coming-soon__signup"
+          action="mailto:launch@siliconlogic.dev?subject=Silicon%20Logic%20launch%20list"
+          method="post"
+          enctype="text/plain"
+        >
+          <label for="launch-email">Launch list</label>
+          <div class="coming-soon__signup-row">
+            <input
+              id="launch-email"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              required
+            />
+            <button type="submit">Request invite</button>
+          </div>
+          <a href="mailto:launch@siliconlogic.dev?subject=Silicon%20Logic%20launch%20list&body=Please%20add%20me%20to%20the%20Silicon%20Logic%20launch%20list.">
+            Email the launch list directly
+          </a>
+        </form>
+
+        <a class="coming-soon__preprint-link" href="/methodology-preprint/">
+          Methodology v0.9 Pre-Print
+        </a>
+      </div>
+    </section>
+
+    <section class="coming-soon__motion" aria-label="Benchmark pipeline preview">
+      <div class="motion-chrome">
+        <span>Silicon Logic</span>
+        <span>Benchmark methodology · v0.9</span>
+      </div>
+      <div class="motion-stage">
+        <div class="motion-doc" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="motion-copy">
+          <p>Pre-registered methodology.</p>
+          <code>commit a3f9c1b8d2e4 · locked</code>
+        </div>
+        <div class="motion-meter" aria-hidden="true">
+          <span></span>
+        </div>
+        <dl class="motion-metrics">
+          <div>
+            <dt>Throughput</dt>
+            <dd>tokens/s</dd>
+          </div>
+          <div>
+            <dt>Perplexity</dt>
+            <dd>guardrail</dd>
+          </div>
+          <div>
+            <dt>Power</dt>
+            <dd>wall + SoC</dd>
+          </div>
+        </dl>
+        <div class="motion-hash">
+          <span>Signed run hash</span>
+          <code>7d4e1b9a2c8f0e35</code>
+        </div>
+      </div>
+      <div class="motion-footer">
+        <span>01 / 06 · Measurement</span>
+        <span>Auditable, not anecdotal.</span>
+      </div>
+    </section>
 
     <div class="coming-soon__body">
       <section class="coming-soon__section" aria-labelledby="first-article-heading">
         <h2 id="first-article-heading">First Report</h2>
         <p>
-          Article 1 measures llama.cpp against mlx_lm on Apple Silicon, using an M5 Max with 36 GB of
-          unified memory. It includes thermal disclosure, wall and SoC power measurement, perplexity
-          guardrails, and the full raw output release.
+          Article 1 compares llama.cpp against mlx_lm on Apple Silicon, on throughput, perplexity,
+          thermals, and wall and SoC power, using an M5 Max with 36 GB of unified memory.
         </p>
         <p>
           The report will publish with a pre-registration document and signed run hashes, so the benchmark
@@ -38,22 +123,19 @@ const description =
         <p>
           Silicon Logic treats methodology as part of the artifact: run plans are pre-registered, raw
           outputs are preserved, and claims are tied back to signed measurement records. The methodology
-          paper is forthcoming and will document the benchmark harness, measurement boundaries, and
-          reporting rules before the first review lands.
+          paper is forthcoming; the <a href="/methodology-preprint/">v0.9 pre-print stub</a> reserves the
+          public URL and names the benchmark harness, measurement boundaries, and reporting rules before
+          the first review lands.
         </p>
-      </section>
-
-      <section class="coming-soon__section" aria-labelledby="signup-heading">
-        <h2 id="signup-heading">Get the Launch Note</h2>
-        <div id="email-signup" class="coming-soon__signup">
-          <p>Email signup will appear here before launch.</p>
-        </div>
       </section>
     </div>
   </article>
 
   <footer class="coming-soon__footer" aria-label="Silicon Logic links">
-    <a href="https://x.com/SiliconLogicDev">X: @SiliconLogicDev</a>
-    <a href="https://github.com/Silicon-Logic/silicon-logic">GitHub: Silicon-Logic/silicon-logic</a>
+    <span>Silicon Logic&trade;</span>
+    <a href="https://x.com/siliconlogic_" aria-label="X: @SiliconLogic, currently redirecting to @siliconlogic_">
+      X: @SiliconLogic
+    </a>
+    <a href="https://github.com/Silicon-Logic">GitHub: Silicon-Logic</a>
   </footer>
 </BaseLayout>

@@ -1,14 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Silicon Logic">
-  <rect width="48" height="48" rx="0" fill="#fbfaf7" />
+  <rect width="48" height="48" fill="#fbfaf7" />
+  <circle cx="24" cy="24" r="22" fill="#f0ebdf" />
+  <path d="M10 10.5h28" fill="none" stroke="#918b7e" stroke-width="0.8" />
+  <path d="M10 37.5h28" fill="none" stroke="#918b7e" stroke-width="0.8" />
   <text
-    x="24"
-    y="28"
+    x="16.8"
+    y="28.6"
     text-anchor="middle"
     dominant-baseline="middle"
-    fill="#1f2024"
+    fill="#161510"
     font-family="Tiempos Headline, Tiempos Text Web, Georgia, serif"
-    font-size="20"
+    font-size="24"
     font-weight="900"
-    letter-spacing="-1"
-  >SL</text>
+    letter-spacing="-1.6"
+  >S</text>
+  <text
+    x="30.2"
+    y="28.6"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    fill="#25486f"
+    font-family="Tiempos Headline, Tiempos Text Web, Georgia, serif"
+    font-size="24"
+    font-style="italic"
+    font-weight="900"
+    letter-spacing="-1.8"
+  >L</text>
 </svg>

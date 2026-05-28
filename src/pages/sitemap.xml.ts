@@ -4,6 +4,7 @@ import { isComingSoonMode } from "../lib/launch-mode";
 
 const STATIC_ROUTES = [
   "/",
+  "/methodology-preprint/",
   "/reviews/",
   "/benchmarks/",
   "/notes/",
@@ -26,7 +27,7 @@ function escapeXml(value: string) {
 export async function GET(context: APIContext) {
   const site = context.site ?? new URL("https://siliconlogic.dev");
   const paths = isComingSoonMode()
-    ? ["/"]
+    ? ["/", "/methodology-preprint/"]
     : [
         ...STATIC_ROUTES,
         ...(await getArticles()).map((article) => getArticlePath(article)),

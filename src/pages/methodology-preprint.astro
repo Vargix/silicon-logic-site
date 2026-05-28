@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const commitSha = import.meta.env.CF_PAGES_COMMIT_SHA ?? "local-preview";
+const description =
+  "Reserved URL for the Silicon Logic methodology pre-print: benchmark provenance, pre-registration, measurement boundaries, and anti-pattern guardrails.";
+---
+
+<BaseLayout
+  title="Methodology v0.9 Pre-Print | Silicon Logic"
+  description={description}
+  canonicalUrl="/methodology-preprint/"
+  pageType="page"
+  ogImage="/brand/sl-monogram.png"
+>
+  <article class="preprint-stub prose">
+    <p class="coming-soon__eyebrow">Methodology v0.9 Pre-Print</p>
+    <h1>Auditable, not anecdotal.</h1>
+    <p>
+      This URL is reserved for the Silicon Logic methodology paper. The v1.0 paper will document the
+      benchmark harness, measurement boundaries, cryptographic provenance model, pre-registration rules,
+      and anti-pattern list before the first public benchmark report ships.
+    </p>
+    <p>
+      The v0.9 draft is available on request while the launch report is being finalized. This stub is
+      intentionally public and dated so the methodology surface is visible before publication.
+    </p>
+    <dl class="preprint-stub__meta">
+      <div>
+        <dt>Status</dt>
+        <dd>Reserved for v1.0; v0.9 draft available on request</dd>
+      </div>
+      <div>
+        <dt>Date</dt>
+        <dd><time datetime="2026-05-27">May 27, 2026</time></dd>
+      </div>
+      <div>
+        <dt>Build anchor</dt>
+        <dd><code>{commitSha}</code></dd>
+      </div>
+    </dl>
+    <p>
+      <a href="mailto:launch@siliconlogic.dev?subject=Methodology%20v0.9%20pre-print%20request">
+        Request the v0.9 draft
+      </a>
+    </p>
+  </article>
+</BaseLayout>
